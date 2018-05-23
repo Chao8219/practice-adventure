@@ -2,7 +2,6 @@ import string
 import random
 import time
 import os
-
 def WordbyWord(Line):
     size=len(Line)
     i=0;
