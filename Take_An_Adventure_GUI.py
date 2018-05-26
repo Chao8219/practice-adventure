@@ -1,11 +1,22 @@
 from tkinter import *
 import time
+import string
 
 user_input='' # set a string to store user's input
 entered=0 # check if user type in anything through Entry
 lets_rock=0 # game start flag
-
+speed_var=0
 player_name=''
+
+def reduce_speed():
+    ass=0
+    ass=70-int(speed_val.get()/1.45)
+    delay(ass)
+    return
+    
+def Remap(Old_Min,Old_Max,New_Min,New_Max):
+    # don't need it now, may be usefull in the future
+    return
 
 def endWindow():
     script.config(state=DISABLED)
@@ -26,7 +37,7 @@ def TN(Name): # Type in Name
         window.update()
         script.see(END) # auto scroll the scrollbar
         script.config(state=DISABLED)
-        delay(70) # delay 70 ms
+        reduce_speed() # delay 70 ms by default
         window.update()
     delay(400)
     window.update()
@@ -45,8 +56,25 @@ def TL(Line): # Type in Lines
         window.update()
         script.see(END) # auto scroll the scrollbar
         script.config(state=DISABLED)
-        delay(70) # delay 70 ms
+        reduce_speed() # delay 70 ms by default
         window.update()
+    delay(400)
+    window.update()
+    type_in.config(state=NORMAL)
+    enter_button.config(state=NORMAL)
+    return
+
+def InsDisplay(words): # Instantly display texts
+    global entered
+    entered=0 # with new line, the user is not entering
+    type_in.config(state=DISABLED) # not allowed entering between lines
+    enter_button.config(state=DISABLED)
+    script.config(state=NORMAL)
+    script.insert(END,words)
+    window.update()
+    script.see(END) # auto scroll the scrollbar
+    script.config(state=DISABLED)
+    window.update()
     delay(400)
     window.update()
     type_in.config(state=NORMAL)
@@ -115,8 +143,15 @@ enter_button=Button(window,text='Enter',font=(14),command=GT)
 enter_button.pack()
 enter_button.place(anchor=NW,x=170,y=345,height=30,width=60)
 
-# ----- Player Info Frame ----- #
+# ----- Speed Bar Initialization ----- #
+speed_val = IntVar()
+speed_bar=Scale(window,variable = speed_val,orient=HORIZONTAL,label='Game Speed+ Control Bar')
+speed_bar.pack()
+speed_bar.config()
+speed_bar.place(anchor=NW,x=560,y=345,width=224)
+speed_bar.configure(background='LightCyan2',activebackground='cyan3')
 
+# ----- Player Info Frame ----- #
 player_info_frame=Frame(window,relief=GROOVE)
 player_info_frame.pack()
 player_info_frame.place(anchor=NW,x=560,y=10,height=320,width=224)
@@ -173,6 +208,7 @@ player_info_name2.place(anchor=N,x=112,y=30)
 while(lets_rock==0):
     window.update()
     print('Press Start Game to begin.')
+lets_rock==0
 
 TN('???')
 TL('Greating, my friend!\n')
@@ -181,40 +217,46 @@ TN('???')
 TL('Welcome to Baguette\'s World!\n')
 delay(300)
 TN('???')
-TL('Dear Adventurer,')
+TL('Dear adventurer,')
+delay(100)
 TL(' may I have your name?\n')
-TL(' Your name:\n')
+InsDisplay('Your name:\n')
 while(1):
     wait_for_input()
     if(user_input!=''):
-        if(len(user_input)<=5):
+        if(len(user_input)<=6):
             player_name=user_input
             player_info_name2.config(text=player_name)
             break
         else:
-            TL('Please enter less than 5 words.\n')
+            TL('Please enter less than 6 words.\n')
     else:
         entered==0
         TL('Please enter at least 1 word.\n')
-        
+user_input=''        
 TN(player_name)
 TL('Hi, I am '+player_name+'.\n')
 
-if(player_name!='Lucas' and player_name!='lucas'):
-    TN('???')
-    TL('Hello, '+player_name+', it is a great honor to meet you.\n')
-    TN('???')
-    TL('My name is Lucas Murphy. You can call me Lu.\n')
-else:
+if(player_name=='Lucas' or player_name=='lucas'):
     TN('???')
     TL('Hmm, my name is Lucas as well, Lucas Murphy. ')
     delay(100)
     TL('You can call me Lu.\n')
+elif(player_name=='Lu' or player_name=='lu'):
+    TN('???')
+    TL('Hmm, my name is Lu as well, Lucas Murphy. ')
+    delay(100)
+    TL('You can call me Lu too.\n')
+else:
+    TN('???')
+    TL('Hello, '+player_name+', it is a great honor to meet you.\n')
+    TN('???')
+    TL('My name is Lucas Murphy. You can call me Lu.\n')
 
 TN('Lu')
-TL('Dear Adventurer,')
+TL('Dear adventurer,')
 delay(300)
-TL(' you may wonder why you are here. Please allow me to ellaborate it.\n')
+TL(' you may wonder why you are here. Please allow me to ellaborate it for you.\n')
 delay(300)
 TN('Lu')
 TL(player_name+', '+'you are summoned to this world by our greatest wizard \"Alexandra Lyapunov\" who once defeated the Evil Slime King.\n')
@@ -222,8 +264,35 @@ TN('Lu')
 TL('The reason why he summons you is that, he sees the potential on you.\n')
 TN('Lu')
 TL('He believes, provided by opportunity, you will become one of the best warriors in this world.\n')
+TN('Lu')
+TL(player_name+', '+'would you like to accpet your first mission to begin your journey?\n')
+InsDisplay('Your choice: \n')
+InsDisplay(' 1.Yes\n 2.No\n')
+
+while(1):
+    wait_for_input()
+    if(user_input!=''):
+        if(user_input=='1'):
+            TN(player_name)
+            TL('I very much do.\n')
+            break
+        elif(user_input=='2'):
+            TN(player_name)
+            TL('Nope, not really.\n')
+            TN('Lu')
+            TL('Sure thing, my friend. See you in a little bit.\n')
+            InsDisplay('Game\'s over, please restart game.\n')
+            break
+        else:
+            entered==0
+            TL('Please enter 1 or 2.\n')
+    else:
+        TL('Please enter at least 1 word.\n')
+user_input=''
+
 
 
 TL('\n\nTo be continued...\n')
-    
+
+
 window.mainloop()
