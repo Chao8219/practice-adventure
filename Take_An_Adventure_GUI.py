@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 import string
+import pickle
 
 user_input='' # set a string to store user's input
 entered=0 # check if user type in anything through Entry
