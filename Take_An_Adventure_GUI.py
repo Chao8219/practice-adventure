@@ -11,7 +11,7 @@ player_name=''
 
 def reduce_speed():
     ass=0
-    ass=70-int(speed_val.get()/1.45)
+    ass=100-int(speed_val.get())
     delay(ass)
     return
     
@@ -100,6 +100,7 @@ def wait_for_input():
 def Start(event=None):
     global lets_rock
     lets_rock=1
+    print('Get Started')
     return
 
 def delay(t):
@@ -166,45 +167,7 @@ player_info_name2=Label(player_info_frame,background='LightCyan2')
 player_info_name2.pack()
 player_info_name2.place(anchor=N,x=112,y=30)
 
-# ---- <Test Texts> ---- #
-##Line_test='Welcome to the GUI debug world.\n'
-##TypeInLine(Line_test)
-##Line_test2='I am your host, Will.\n'
-##TypeInLine(Line_test2)
-##Line_test3='Many bugs may appear in this world, such as xhckjendksdjck and u4iwksjdcuhe2uo3432\n'
-##TypeInLine(Line_test3)
-##Line_test4='But,\n'+'so far\n'+'so good.\n'
-##TypeInLine(Line_test4)
-##Line_test5='I wonder\n'+'if\n'+'we\n'+'simply\n'+'create\n'+'many\n'+'lines\n'+'Then\n'+'what\n'+'would\n'+'happen?\n'
-##TypeInLine(Line_test5)
-# ---- </Test Texts> ---- #
-
-# ---- <Test Texts 2> ---- #
-##TN('Axx')
-##TL('中文字体\n')
-##TN('ABCde')
-##TL('这是一大长串的字符，要换行的那种，看看效果怎么样。估计字符数量可能需要很多才能换行\n')
-##TN('ABCDE')
-##TL('mmmmmmmmm ssssssss wwwwww rrrrrrr qqqqq zzzzz ttttt sssss cccccc\n')
-# ---- </Test Texts 2> ---- #
-
-# ---- <Test Texts with input> ---- #
-##while(1):
-##    Line1='Who are you?\n'
-##    TL(Line1)
-##    wait_for_input()
-##    if(user_input=='Jack' or user_input=='jack'):
-##        TL('Jack, welcome back.\n')
-##        break
-##    elif(user_input!=''):
-##        TL('Are you sure, Jack?\n')
-##    else:
-##        TL('Please type anything.\n')
-##
-##TL('I am your host, Alex.\n')
-# ---- </Test Texts with input> ---- #
-
-# ---- <Main> ---- #
+# ---- <Main Script> ---- #
 
 while(lets_rock==0):
     window.update()
@@ -293,7 +256,6 @@ user_input=''
 
 
 
+
 TL('\n\nTo be continued...\n')
-
-
 window.mainloop()

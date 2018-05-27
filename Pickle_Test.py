@@ -11,7 +11,7 @@ if not os.path.exists(path):
 if not os.path.exists(outputFile):
     with open(outputFile, 'w+'): pass
 
-dataset = ['hello','world']
+dataset = [['hello','world'],['second','element']]
 fw = open(outputFile, 'wb')
 pickle.dump(dataset, fw)
 fw.close()
@@ -19,5 +19,6 @@ fw.close()
 
 fd = open(inputFile, 'rb')
 dataset2 = pickle.load(fd)
-print(dataset2[1])
+print(dataset2[0][1])
+print(dataset2[1][0])
 
