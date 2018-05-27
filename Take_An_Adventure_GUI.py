@@ -1,7 +1,6 @@
 from tkinter import *
 import time
 import string
-import pickle
 
 user_input='' # set a string to store user's input
 entered=0 # check if user type in anything through Entry
@@ -153,10 +152,10 @@ speed_bar.config()
 speed_bar.place(anchor=NW,x=560,y=345,width=224)
 speed_bar.configure(background='LightCyan2',activebackground='cyan3')
 
-# ----- Player Info Frame ----- #
+# ----- Player Status Info Frame ----- #
 player_info_frame=Frame(window,relief=GROOVE)
 player_info_frame.pack()
-player_info_frame.place(anchor=NW,x=560,y=10,height=320,width=224)
+player_info_frame.place(anchor=NW,x=560,y=10,height=190,width=224)
 player_info_frame.configure(background='LightCyan2')
 
 player_info_name=Label(player_info_frame,text="Your Name",background='LightCyan2')
@@ -166,6 +165,76 @@ player_info_name.place(anchor=N,x=112,y=10)
 player_info_name2=Label(player_info_frame,background='LightCyan2')
 player_info_name2.pack()
 player_info_name2.place(anchor=N,x=112,y=30)
+
+player_status_frame=Frame(player_info_frame)
+player_status_frame.pack()
+player_status_frame.place(anchor=N,x=112,y=55,height=125,width=105)
+
+player_status_name=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_name.pack()
+player_status_name.place(anchor=NW,x=0,y=0,height=125,width=65)
+player_status_name.insert(1,'Strenth ')
+player_status_name.insert(2,'Intellect ')
+player_status_name.insert(3,'Agility ')
+player_status_name.insert(4,'Defense ')
+player_status_name.insert(5,'Faith ')
+player_status_name.insert(6,'Sanity ')
+player_status_name.insert(7,'Luck ')
+player_status_name.config(justify=RIGHT)
+
+player_status_val=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_val.pack()
+player_status_val.place(anchor=NE,x=105,y=0,height=125,width=40)
+player_status_val.config(justify=CENTER)
+player_status_val.insert(1,'0')
+player_status_val.insert(2,'0')
+player_status_val.insert(3,'0')
+player_status_val.insert(4,'0')
+player_status_val.insert(5,'0')
+player_status_val.insert(6,'0')
+player_status_val.insert(7,'0')
+
+# ----- Player Wear Info Frame ----- #
+player_wear_frame=Frame(window,relief=GROOVE)
+player_wear_frame.pack()
+player_wear_frame.place(anchor=NW,x=560,y=210,height=120,width=224)
+player_wear_frame.configure(background='LightCyan2')
+
+player_wear_frame_name=Label(player_wear_frame,text="Equipment",background='LightCyan2')
+player_wear_frame_name.pack()
+player_wear_frame_name.place(anchor=N,x=112,y=5)
+
+player_headwear=Label(player_wear_frame,text="Headwear",background='LightCyan2')
+player_headwear.pack()
+player_headwear.place(anchor=N,x=50,y=30)
+
+player_headwear2=Label(player_wear_frame,background='LightCyan2')
+player_headwear2.pack()
+player_headwear2.place(anchor=N,x=50,y=50)
+
+player_armour=Label(player_wear_frame,text="Armour",background='LightCyan2')
+player_armour.pack()
+player_armour.place(anchor=N,x=174,y=30)
+
+player_armour2=Label(player_wear_frame,background='LightCyan2')
+player_armour2.pack()
+player_armour2.place(anchor=N,x=174,y=50)
+
+player_weapon=Label(player_wear_frame,text="Weapon",background='LightCyan2')
+player_weapon.pack()
+player_weapon.place(anchor=N,x=50,y=70)
+
+player_weapon2=Label(player_wear_frame,background='LightCyan2')
+player_weapon2.pack()
+player_weapon2.place(anchor=N,x=50,y=90)
+
+player_footwear=Label(player_wear_frame,text="Footwear",background='LightCyan2')
+player_footwear.pack()
+player_footwear.place(anchor=N,x=174,y=70)
+
+player_footwear2=Label(player_wear_frame,background='LightCyan2')
+player_footwear2.pack()
+player_footwear2.place(anchor=N,x=174,y=90)
 
 # ---- <Main Script> ---- #
 
@@ -245,7 +314,6 @@ while(1):
             TL('Nope, not really.\n')
             TN('Lu')
             TL('Sure thing, my friend. See you in a little bit.\n')
-            InsDisplay('Game\'s over, please restart game.\n')
             break
         else:
             entered==0

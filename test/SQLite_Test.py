@@ -6,7 +6,7 @@ path='userinfo'
 file=path+'/sqlite3_test.db'
 
 def create_file():
-    print('Creating Database...')
+    print('Trying to Create Database...')
     if not os.path.exists(path):
         os.makedirs(path)
     if not os.path.exists(file):
