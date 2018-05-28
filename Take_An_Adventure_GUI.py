@@ -28,8 +28,6 @@ def reduce_speed():
     ass=100-int(speed_val.get())
     delay(ass)
     return
-    
-
 
 def endWindow():
     script.config(state=DISABLED)
@@ -181,9 +179,9 @@ player_info_name2=Label(player_info_frame,background='LightCyan2')
 player_info_name2.pack()
 player_info_name2.place(anchor=N,x=112,y=30)
 
-player_status_frame=Frame(player_info_frame)
+player_status_frame=Frame(player_info_frame,background='LightCyan2')
 player_status_frame.pack()
-player_status_frame.place(anchor=N,x=112,y=55,height=125,width=105)
+player_status_frame.place(anchor=N,x=112,y=55,height=125,width=170)
 
 player_status_name=Listbox(player_status_frame,bd=0,background='LightCyan2')
 player_status_name.pack()
@@ -199,15 +197,17 @@ player_status_name.config(justify=RIGHT)
 
 player_status_val=Listbox(player_status_frame,bd=0,background='LightCyan2')
 player_status_val.pack()
-player_status_val.place(anchor=NE,x=105,y=0,height=125,width=40)
+player_status_val.place(anchor=N,x=100,y=0,height=125,width=40)
 player_status_val.config(justify=CENTER)
-player_status_val.insert(1,'0')
-player_status_val.insert(2,'0')
-player_status_val.insert(3,'0')
-player_status_val.insert(4,'0')
-player_status_val.insert(5,'0')
-player_status_val.insert(6,'0')
-player_status_val.insert(7,'0')
+for i in range(0,7):
+    player_status_val.insert(i,'0')
+
+player_status_addval=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_addval.pack()
+player_status_addval.place(anchor=NE,x=160,y=0,height=125,width=40)
+player_status_addval.config(justify=CENTER)
+for i in range(0,7):
+    player_status_addval.insert(i,'+0')
 
 # ----- Player Wear Info Frame ----- #
 player_wear_frame=Frame(window,relief=GROOVE)
