@@ -169,3 +169,7 @@ while(1):
                 print(ass2[j],end='')
                 print(' | ',end='')
             print('')
+        else:
+            print('None such a name exists.\n')
+    else:
+        print('Please re-select.\n')

@@ -451,15 +451,13 @@ def saved_review():
                     InsDisplay('\nDisplaying...\n')
                     InsDisplay('Please select one name to display detail.\n')
                     for j in range (0,len(ass)):
-                        InsDisplay(' ')
-                        InsDisplay(ass[j][0])
-                        InsDisplay('\n')
+                        InsDisplay(' '+ass[j][0]+'\n')
                     user_input=''
                     wait_for_input()
                     while(1):
                         if(user_input!=''):
                             if(find_info(user_input)==1):
-                                InsDisplay('Displaying now...\n')
+                                InsDisplay('Please see status list for details\n\n')
                                 ass2=read_info(user_input)
                                 get_from_array(ass2)
                                 update_status_showing()
@@ -485,9 +483,10 @@ def saved_review():
                             ass2=read_info(user_input)
                             get_from_array(ass2)
                             update_status_showing()
-                            InsDisplay('Done!\n\n')
+                            InsDisplay('Done!\n')
+                            TL('Welcome back, '+player_name+'.\n\n')
                             move_on=1
-                            go_back_to_last=0
+                            go_back_to_last=1
                             break
                     else:
                         InsDisplay('Please enter at least 1 word.\n')
@@ -537,8 +536,6 @@ while(lets_rock==0):
     print('Press Start Game to begin.')
 lets_rock==0
 
-#create_flie()
-
 while(go_back_to_last==0):
     beginning_script()
     if(move_on==1):
@@ -547,13 +544,9 @@ while(go_back_to_last==0):
     else:
         saved_review()
 
-
-
 TN('Lu')
 TL('Let the adventure begin!\n')
 
-
-# load 
 
 
 TL('\n\nTo be continued...\n')
