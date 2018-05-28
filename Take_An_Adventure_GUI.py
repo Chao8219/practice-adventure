@@ -175,7 +175,7 @@ def delay(t):
 
 # ----- General Initialization ----- #
 window=Tk()
-window.title('Take An New Adventure')
+window.title('Take A New Adventure')
 window.geometry('810x500') # 0.618 ratio
 window.resizable(width=False, height=False)
 window.configure(background='cornflower blue')
