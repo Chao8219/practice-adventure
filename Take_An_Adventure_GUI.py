@@ -3,74 +3,24 @@ import time
 import string
 from random import randint
 from user_io import *
+from ini import *
+import sub_func
+from sub_func import *
 
-user_input='' # set a string to store user's input
-entered=0 # check if user type in anything through Entry
-lets_rock=0 # game start flag
-speed_var=0
-go_back_to_last=0
-
-move_on=0
-
-create_file()
-player_name=''
-stre=''
-inte=''
-agi=''
-defe=''
-fai=''
-san=''
-luc=''
-head=''
-arm=''
-weap=''
-foot=''
-
-def reset_status():
-    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
-    player_name=''
-    stre=''
-    inte=''
-    agi=''
-    defe=''
-    fai=''
-    san=''
-    luc=''
-    head=''
-    arm=''
-    weap=''
-    foot=''
-    return
-
-def random_generate_status():
-    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
-    stre=str(randint(1,15))
-    inte=str(randint(1,15))
-    agi=str(randint(2,15))
-    defe=str(randint(3,15))
-    fai=str(randint(5,15))
-    san=str(randint(20,40))
-    luc=str(randint(1,10))
-    head='Casual Hat'
-    arm='Casual Cloth'
-    weap='Twig'
-    foot='Casual Shoes'
-    return
-
-def get_from_array(arr):
+def cross_flie_var_trans():
     global player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
-    player_name=arr[0]
-    stre=arr[1]
-    inte=arr[2]
-    agi=arr[3]
-    defe=arr[4]
-    fai=arr[5]
-    san=arr[6]
-    luc=arr[7]
-    head=arr[8]
-    arm=arr[9]
-    weap=arr[10]
-    foot=arr[11]
+    player_name=sub_func.player_name
+    stre=sub_func.stre
+    inte=sub_func.inte
+    agi=sub_func.agi
+    defe=sub_func.defe
+    fai=sub_func.fai
+    san=sub_func.san
+    luc=sub_func.luc
+    head=sub_func.head
+    arm=sub_func.arm
+    weap=sub_func.weap
+    foot=sub_func.foot
     return
 
 def reduce_speed():
@@ -79,9 +29,7 @@ def reduce_speed():
     delay(ass)
     return
     
-def Remap(Old_Min,Old_Max,New_Min,New_Max):
-    # don't need it now, may be usefull in the future
-    return
+
 
 def endWindow():
     script.config(state=DISABLED)
@@ -362,6 +310,7 @@ def newgame_script():
                     InsDisplay('Now generating your status.')
                     TL('.....\n')
                     random_generate_status()
+                    cross_flie_var_trans()
                     player_name=user_input
                     insert_info(player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot)
                     update_status_showing()
@@ -460,6 +409,7 @@ def saved_review():
                                 InsDisplay('Please see status list for details\n\n')
                                 ass2=read_info(user_input)
                                 get_from_array(ass2)
+                                cross_flie_var_trans()
                                 update_status_showing()
                                 break
                             else:
@@ -482,6 +432,7 @@ def saved_review():
                             TL('Loading...\n')
                             ass2=read_info(user_input)
                             get_from_array(ass2)
+                            cross_flie_var_trans()
                             update_status_showing()
                             InsDisplay('Done!\n')
                             TL('Welcome back, '+player_name+'.\n\n')
@@ -503,6 +454,7 @@ def saved_review():
                             TL('Deleting...\n')
                             delete_info(user_input)
                             reset_status()
+                            cross_flie_var_trans()
                             update_status_showing()
                             InsDisplay('Done!\n\n')
                             move_on=0
@@ -546,7 +498,6 @@ while(go_back_to_last==0):
 
 TN('Lu')
 TL('Let the adventure begin!\n')
-
 
 
 TL('\n\nTo be continued...\n')

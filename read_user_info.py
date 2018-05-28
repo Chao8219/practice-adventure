@@ -148,27 +148,19 @@ while(1):
     if(sele=='1'):
         ass=read_all()
         formed=['name','stre','inte','agi','defe','fai','san','luc','head','arm','weap','foot']
-        for q in range(0,12):
-            print(formed[q],end='')
-            print(' | ',end='')
-        print('')
         for i in range(0,len(ass)):
             for j in range(0,12):
-                print(ass[i][j],end='')
-                print(' | ',end='')
-            print('')
-        print('')
-    if(sele=='2'):
+                print(formed[j]+': '+ass[i][j]+' | ',end='')
+            print('\n')
+    elif(sele=='2'):
         sele2=input('Type in one name: ')
         if(find_info(sele2)==1):
             ass2=read_info(sele2)
             formed=['name','stre','inte','agi','defe','fai','san','luc','head','arm','weap','foot']
+            print('\n')
             for j in range(0,12):
-                print(formed[j],end='')
-                print(': ',end='')
-                print(ass2[j],end='')
-                print(' | ',end='')
-            print('')
+                print(formed[j]+': '+ass2[j]+' | ',end='')
+            print('\n')
         else:
             print('None such a name exists.\n')
     else:
