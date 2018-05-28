@@ -1,6 +1,8 @@
 # Practice_Adventure
 RPG_type
 
-This is a practice of learning Python.
+Please run Take_An_Adventure_GUI to run the game.
 
-Making my own game is much better than playing other games.
+Directory /test/ contains test file.
+
+File read_user_info.py could read the info directly.
