@@ -2,8 +2,8 @@ import sqlite3
 import string
 import os
 
-path='userinfo'
-file=path+'/sqlite3_test.db'
+path='data'
+file=path+'/user_info.db'
 
 def create_file():
     print('Trying to Create Database...')
@@ -14,7 +14,7 @@ def create_file():
         cur = conn.cursor()
         # Create table
         cur.execute('''CREATE TABLE players_info
-                     (ID,NAME,CHARACTER,OTH)''')
+                     (NAME,STR,INT,AGI,DEF,FAI,SAN,LUC,HEAD,ARM,WEAP,FOOT)''')
         conn.commit()
         conn.close
         print('Database created successfully.')
@@ -22,14 +22,14 @@ def create_file():
         print('File exists. Move on.')
     return
 
-def insert_info(ID_insert,name_insert,character_insert,other):
+def insert_info(name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot):
     conn=sqlite3.connect(file)
     cur = conn.cursor()
-    found=find_info(name_insert)
+    found=find_info(name)
     if(found==0):
-        formed=[ID_insert,name_insert,character_insert,other]
+        formed=[name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot]
         cur.execute('''INSERT INTO players_info
-                       VALUES(?,?,?,?)''',formed)
+                       VALUES(?,?,?,?,?,?,?,?,?,?,?,?)''',formed)
         conn.commit()
         conn.close
         print('Database insert successfully')
@@ -41,47 +41,55 @@ def insert_info(ID_insert,name_insert,character_insert,other):
         return 0
 
 def read_info(name):
-    conn = sqlite3.connect(file)
+    global obtained_player_info
+    conn=sqlite3.connect(file)
     cur = conn.cursor()
-    data = empty_check()
+    data=empty_check()
     if(data!=0):
         cur.execute('SELECT * FROM players_info WHERE NAME=?',(name,))
-        cool=cur.fetchone()
-        print(cool)
+        obtained_player_info=cur.fetchone()
+        # this player's info store in above variable
         conn.close
         print('Database read successfully')
-        return 1
-    else:
-        conn.close
-        return 0
-    
-def read_all():
-    conn = sqlite3.connect(file)
-    cur = conn.cursor()
-    data = empty_check()
-    if(data!=0):
-        #for row in cur.execute('SELECT * FROM players_info'):
-        #    print(row)
-        cur.execute('SELECT * FROM players_info')
-        ass=cur.fetchall()
-        for j in range(0,len(ass)):
-            print(ass[j][0]+' | '+ass[j][1]+' | '+ass[j][2]+' | '+ass[j][3])
-        conn.close
-        print('Database read successfully')
-        return 1
+        return obtained_player_info
     else:
         conn.close
         return 0
 
-def update_info(name_insert,character_insert,other):
+def read_all():
+    global obtained_all_player_info
     conn=sqlite3.connect(file)
     cur = conn.cursor()
-    found=find_info(name_insert)
+    data=empty_check()
+    if(data!=0):
+        cur.execute('SELECT * FROM players_info')
+        obtained_all_player_info=cur.fetchall()
+        # all players' info store in above variable
+        conn.close
+        print('Database read successfully')
+        return obtained_all_player_info
+    else:
+        conn.close
+        return 0
+
+def update_info(name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot):
+    conn=sqlite3.connect(file)
+    cur = conn.cursor()
+    found=find_info(name)
     if(found==1):
-        formed2=[character_insert,other,name_insert]
+        formed2=[stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot,name]
         cur.execute('''UPDATE players_info
-                       SET CHARACTER=?
-                       ,OTH=?
+                       SET STR=?
+                       ,INT=?
+                       ,AGI=?
+                       ,DEF=?
+                       ,FAI=?
+                       ,SAN=?
+                       ,LUC=?
+                       ,HEAD=?
+                       ,ARM=?
+                       ,WEAP=?
+                       ,FOOT=?
                        WHERE NAME= ? ''',formed2)
         conn.commit()
         conn.close
@@ -93,12 +101,12 @@ def update_info(name_insert,character_insert,other):
         conn.close
         return 0
 
-def delete_info(name_insert):
+def delete_info(name):
     conn=sqlite3.connect(file)
     cur = conn.cursor()
-    found=find_info(name_insert)
+    found=find_info(name)
     if(found==1):
-        cur.execute('''DELETE FROM players_info WHERE NAME = ? ''',(name_insert,))
+        cur.execute('''DELETE FROM players_info WHERE NAME = ? ''',(name,))
         conn.commit()
         print('Data deleted successfully')
         conn.close
@@ -109,10 +117,10 @@ def delete_info(name_insert):
         conn.close
         return 0
 
-def find_info(name_insert):
+def find_info(name):
     conn=sqlite3.connect(file)
     cur = conn.cursor()
-    cur.execute('''SELECT count(*) FROM players_info WHERE NAME=?''',(name_insert,))
+    cur.execute('''SELECT count(*) FROM players_info WHERE NAME=?''',(name,))
     data=cur.fetchone()[0]
     if(data==0):
         conn.close
@@ -134,34 +142,3 @@ def empty_check():
     else:
         conn.close
         return 1
-        
-
-create_file()
-#insert_info(1,'Chao','calm')
-#read_info()
-#update_info(1,'Cool','cool')
-
-while(1):
-    selection=input('Select 1 for Insert; 2 for Read; 3 for Update; 4 for Delete; 5 for Read all\n')
-    if(selection=='1'):
-        ID=input('ID: ')
-        Name=input('Name: ')
-        Character=input('Character: ')
-        other=input('Other: ')
-        insert_info(ID,Name,Character,other)
-    elif(selection=='2'):
-        Name=input('Name: ')
-        read_info(Name)
-    elif(selection=='3'):
-        Name=input('Name: ')
-        Character=input('Character: ')
-        other=input('Other: ')
-        update_info(Name,Character,other)
-    elif(selection=='4'):
-        name=input('Name: ')
-        delete_info(name)
-    elif(selection=='5'):
-        read_all()
-    else:
-        print('Try in again.')
-

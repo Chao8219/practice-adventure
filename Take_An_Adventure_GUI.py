@@ -1,12 +1,77 @@
 from tkinter import *
 import time
 import string
+from random import randint
+from user_io import *
 
 user_input='' # set a string to store user's input
 entered=0 # check if user type in anything through Entry
 lets_rock=0 # game start flag
 speed_var=0
+go_back_to_last=0
+
+move_on=0
+
+create_file()
 player_name=''
+stre=''
+inte=''
+agi=''
+defe=''
+fai=''
+san=''
+luc=''
+head=''
+arm=''
+weap=''
+foot=''
+
+def reset_status():
+    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    player_name=''
+    stre=''
+    inte=''
+    agi=''
+    defe=''
+    fai=''
+    san=''
+    luc=''
+    head=''
+    arm=''
+    weap=''
+    foot=''
+    return
+
+def random_generate_status():
+    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    stre=str(randint(1,15))
+    inte=str(randint(1,15))
+    agi=str(randint(2,15))
+    defe=str(randint(3,15))
+    fai=str(randint(5,15))
+    san=str(randint(20,40))
+    luc=str(randint(1,10))
+    head='Casual Hat'
+    arm='Casual Cloth'
+    weap='Twig'
+    foot='Casual Shoes'
+    return
+
+def get_from_array(arr):
+    global player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    player_name=arr[0]
+    stre=arr[1]
+    inte=arr[2]
+    agi=arr[3]
+    defe=arr[4]
+    fai=arr[5]
+    san=arr[6]
+    luc=arr[7]
+    head=arr[8]
+    arm=arr[9]
+    weap=arr[10]
+    foot=arr[11]
+    return
 
 def reduce_speed():
     ass=0
@@ -105,6 +170,8 @@ def Start(event=None):
 def delay(t):
     window.after(t)
     return
+
+
 
 # ----- General Initialization ----- #
 window=Tk()
@@ -208,7 +275,7 @@ player_headwear=Label(player_wear_frame,text="Headwear",background='LightCyan2')
 player_headwear.pack()
 player_headwear.place(anchor=N,x=50,y=30)
 
-player_headwear2=Label(player_wear_frame,background='LightCyan2')
+player_headwear2=Label(player_wear_frame,background='LightCyan2',text='None')
 player_headwear2.pack()
 player_headwear2.place(anchor=N,x=50,y=50)
 
@@ -216,7 +283,7 @@ player_armour=Label(player_wear_frame,text="Armour",background='LightCyan2')
 player_armour.pack()
 player_armour.place(anchor=N,x=174,y=30)
 
-player_armour2=Label(player_wear_frame,background='LightCyan2')
+player_armour2=Label(player_wear_frame,background='LightCyan2',text='None')
 player_armour2.pack()
 player_armour2.place(anchor=N,x=174,y=50)
 
@@ -224,7 +291,7 @@ player_weapon=Label(player_wear_frame,text="Weapon",background='LightCyan2')
 player_weapon.pack()
 player_weapon.place(anchor=N,x=50,y=70)
 
-player_weapon2=Label(player_wear_frame,background='LightCyan2')
+player_weapon2=Label(player_wear_frame,background='LightCyan2',text='None')
 player_weapon2.pack()
 player_weapon2.place(anchor=N,x=50,y=90)
 
@@ -232,9 +299,236 @@ player_footwear=Label(player_wear_frame,text="Footwear",background='LightCyan2')
 player_footwear.pack()
 player_footwear.place(anchor=N,x=174,y=70)
 
-player_footwear2=Label(player_wear_frame,background='LightCyan2')
+player_footwear2=Label(player_wear_frame,background='LightCyan2',text='None')
 player_footwear2.pack()
 player_footwear2.place(anchor=N,x=174,y=90)
+
+# ---- <Update Status Showing> ---- #
+def update_status_showing():
+    player_info_name2.config(text=player_name)
+    formed=[stre,inte,agi,defe,fai,san,luc]
+    player_status_val.delete(0,END) # clear listbox
+    for j in range(0,7):
+        player_status_val.insert(j+1,formed[j])
+    player_headwear2.config(text=head)
+    player_armour2.config(text=arm)
+    player_weapon2.config(text=weap)
+    player_footwear2.config(text=foot)
+    return
+
+# ---- <Branch Scripts> ---- #
+def beginning_script():
+    global user_input,entered,move_on
+    TL('Hello, there, welcome to our game.\n')
+    TL('What would you like to do?\n')
+    InsDisplay('1.Start as a new player\n2.Load from saved player\n\n')
+
+    while(1):
+        wait_for_input()
+        if(user_input!=''):
+            if(user_input=='1'):
+                move_on=1
+                break
+            elif(user_input=='2'):
+                move_on=2
+                break
+            else:
+                entered==0
+                InsDisplay('Please enter at least 1 word.\n')
+    user_input=''
+    return
+
+
+def newgame_script():
+    global user_input,player_name,entered
+    TN('???')
+    TL('Greating, my friend!\n')
+    delay(300)
+    TN('???')
+    TL('Welcome to Baguette\'s World!\n')
+    delay(300)
+    TN('???')
+    TL('Dear adventurer,')
+    delay(100)
+    TL(' may I have your name?\n')
+    InsDisplay('Your name:\n')
+    while(1):
+        wait_for_input()
+        if(user_input!=''):
+            if(len(user_input)<=6):
+                if(find_info(user_input)==1):
+                    InsDisplay('This name exists, please try another one.\n')
+                else:
+                    InsDisplay('Now generating your status.')
+                    TL('.....\n')
+                    random_generate_status()
+                    player_name=user_input
+                    insert_info(player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot)
+                    update_status_showing()
+                    InsDisplay('Done\n')
+                    break
+            else:
+                InsDisplay('Please enter less than 6 words.\n')
+        else:
+            entered==0
+            InsDisplay('Please enter at least 1 word.\n')
+    user_input=''        
+    TN(player_name)
+    TL('Hi, I am '+player_name+'.\n')
+
+    if(player_name=='Lucas' or player_name=='lucas'):
+        TN('???')
+        TL('Hmm, my name is Lucas as well, Lucas Murphy. ')
+        delay(100)
+        TL('You can call me Lu.\n')
+    elif(player_name=='Lu' or player_name=='lu'):
+        TN('???')
+        TL('Hmm, my name is Lu as well, Lucas Murphy. ')
+        delay(100)
+        TL('You can call me Lu too.\n')
+    else:
+        TN('???')
+        TL('Hello, '+player_name+', it is a great honor to meet you.\n')
+        TN('???')
+        TL('My name is Lucas Murphy. You can call me Lu.\n')
+
+    TN('Lu')
+    TL('Dear adventurer,')
+    delay(300)
+    TL(' you may wonder why you are here. Please allow me to ellaborate it for you.\n')
+    delay(300)
+    TN('Lu')
+    TL(player_name+', '+'you are summoned to this world by our greatest wizard \"Alexandra Lyapunov\" who once defeated the Evil Slime King.\n')
+    TN('Lu')
+    TL('The reason why he summons you is that, he sees the potential on you.\n')
+    TN('Lu')
+    TL('He believes, provided by opportunity, you will become one of the best warriors in this world.\n')
+    TN('Lu')
+    TL(player_name+', '+'would you like to accpet your first mission to begin your journey?\n')
+    InsDisplay('Your choice: \n')
+    InsDisplay(' 1.Yes\n 2.No\n')
+
+    while(1):
+        wait_for_input()
+        if(user_input!=''):
+            if(user_input=='1'):
+                TN(player_name)
+                TL('I very much do.\n')
+                TN('Lu')
+                TL('Wonderful! Now the first task is to explore the village outside of the town.\n')
+                TN('Lu')
+                TL('Once you get there, you will know what to do.\n')
+                break
+            elif(user_input=='2'):
+                TN(player_name)
+                TL('Nope, not really.\n')
+                TN('Lu')
+                TL('Sure thing, my friend. See you in a little bit.\n')
+                break
+            else:
+                entered==0
+                InsDisplay('Please enter 1 or 2.\n')
+        else:
+            InsDisplay('Please enter at least 1 word.\n')
+    user_input=''
+    return
+
+def saved_review():
+    global user_input,entered,move_on,go_back_to_last
+    go_back_to_last=0
+    move_on=0
+    while(1):
+        TL('Please select:\n')
+        InsDisplay('1.Review all saved player files.\n')
+        InsDisplay('2.Load one file.\n')
+        InsDisplay('3.Delete one file.\n')
+        InsDisplay('4.Return to main meau.\n')
+        wait_for_input()
+        if(user_input!=''):
+            if(user_input=='1'):
+                ass=read_all()
+                if(empty_check()==1):
+                    InsDisplay('\nDisplaying...\n')
+                    InsDisplay('Please select one name to display detail.\n')
+                    for j in range (0,len(ass)):
+                        InsDisplay(' ')
+                        InsDisplay(ass[j][0])
+                        InsDisplay('\n')
+                    user_input=''
+                    wait_for_input()
+                    while(1):
+                        if(user_input!=''):
+                            if(find_info(user_input)==1):
+                                InsDisplay('Displaying now...\n')
+                                ass2=read_info(user_input)
+                                get_from_array(ass2)
+                                update_status_showing()
+                                break
+                            else:
+                                InsDisplay('No such name.\n\n')
+                                break
+                        else:
+                            InsDisplay('Please enter at least 1 word.\n')
+                    user_input=''
+                else:
+                    TL('\nNo data in database.\n\n')
+            elif(user_input=='2'):
+                InsDisplay('\nPlease type in the name.\n')
+                wait_for_input()
+                while(1):
+                    if(user_input!=''):
+                        if(find_info(user_input)==0):
+                            InsDisplay('No such name.\n\n')
+                            break
+                        else:
+                            TL('Loading...\n')
+                            ass2=read_info(user_input)
+                            get_from_array(ass2)
+                            update_status_showing()
+                            InsDisplay('Done!\n\n')
+                            move_on=1
+                            go_back_to_last=0
+                            break
+                    else:
+                        InsDisplay('Please enter at least 1 word.\n')
+                user_input=''
+            elif(user_input=='3'):
+                InsDisplay('\nPlease type in the name to delete.\n')
+                wait_for_input()
+                while(1):
+                    if(user_input!=''):
+                        if(find_info(user_input)==0):
+                            InsDisplay('No such name.\n\n')
+                            break
+                        else:
+                            TL('Deleting...\n')
+                            delete_info(user_input)
+                            reset_status()
+                            update_status_showing()
+                            InsDisplay('Done!\n\n')
+                            move_on=0
+                            break
+                    else:
+                        InsDisplay('Please enter at least 1 word.\n')
+                user_input=''
+            elif(user_input=='4'):
+                go_back_to_last=1
+            else:
+                entered=0
+                go_back_to_last=0
+                TL('Please enter 1, 2, 3, or 4.\n\n')
+        else:
+            InsDisplay('Please enter at least 1 word.\n')
+            
+        if(move_on==1):
+            move_on=0
+            break
+        if(go_back_to_last==1):
+            go_back_to_last=0
+            InsDisplay('\n')
+            break
+    user_input=''
+    return
 
 # ---- <Main Script> ---- #
 
@@ -243,86 +537,23 @@ while(lets_rock==0):
     print('Press Start Game to begin.')
 lets_rock==0
 
-TN('???')
-TL('Greating, my friend!\n')
-delay(300)
-TN('???')
-TL('Welcome to Baguette\'s World!\n')
-delay(300)
-TN('???')
-TL('Dear adventurer,')
-delay(100)
-TL(' may I have your name?\n')
-InsDisplay('Your name:\n')
-while(1):
-    wait_for_input()
-    if(user_input!=''):
-        if(len(user_input)<=6):
-            player_name=user_input
-            player_info_name2.config(text=player_name)
-            break
-        else:
-            TL('Please enter less than 6 words.\n')
+#create_flie()
+
+while(go_back_to_last==0):
+    beginning_script()
+    if(move_on==1):
+        newgame_script()
+        break
     else:
-        entered==0
-        TL('Please enter at least 1 word.\n')
-user_input=''        
-TN(player_name)
-TL('Hi, I am '+player_name+'.\n')
-
-if(player_name=='Lucas' or player_name=='lucas'):
-    TN('???')
-    TL('Hmm, my name is Lucas as well, Lucas Murphy. ')
-    delay(100)
-    TL('You can call me Lu.\n')
-elif(player_name=='Lu' or player_name=='lu'):
-    TN('???')
-    TL('Hmm, my name is Lu as well, Lucas Murphy. ')
-    delay(100)
-    TL('You can call me Lu too.\n')
-else:
-    TN('???')
-    TL('Hello, '+player_name+', it is a great honor to meet you.\n')
-    TN('???')
-    TL('My name is Lucas Murphy. You can call me Lu.\n')
-
-TN('Lu')
-TL('Dear adventurer,')
-delay(300)
-TL(' you may wonder why you are here. Please allow me to ellaborate it for you.\n')
-delay(300)
-TN('Lu')
-TL(player_name+', '+'you are summoned to this world by our greatest wizard \"Alexandra Lyapunov\" who once defeated the Evil Slime King.\n')
-TN('Lu')
-TL('The reason why he summons you is that, he sees the potential on you.\n')
-TN('Lu')
-TL('He believes, provided by opportunity, you will become one of the best warriors in this world.\n')
-TN('Lu')
-TL(player_name+', '+'would you like to accpet your first mission to begin your journey?\n')
-InsDisplay('Your choice: \n')
-InsDisplay(' 1.Yes\n 2.No\n')
-
-while(1):
-    wait_for_input()
-    if(user_input!=''):
-        if(user_input=='1'):
-            TN(player_name)
-            TL('I very much do.\n')
-            break
-        elif(user_input=='2'):
-            TN(player_name)
-            TL('Nope, not really.\n')
-            TN('Lu')
-            TL('Sure thing, my friend. See you in a little bit.\n')
-            break
-        else:
-            entered==0
-            TL('Please enter 1 or 2.\n')
-    else:
-        TL('Please enter at least 1 word.\n')
-user_input=''
+        saved_review()
 
 
+
+TN('Lu')
+TL('Let the adventure begin!\n')
+
+
+# load 
 
 
 TL('\n\nTo be continued...\n')
