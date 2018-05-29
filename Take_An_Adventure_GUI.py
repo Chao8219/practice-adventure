@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import time
 import string
 from random import randint
@@ -161,9 +162,31 @@ enter_button.place(anchor=NW,x=170,y=345,height=30,width=60)
 speed_val = IntVar()
 speed_bar=Scale(window,variable = speed_val,orient=HORIZONTAL,label='Game Speed+ Control Bar')
 speed_bar.pack()
-speed_bar.config()
-speed_bar.place(anchor=NW,x=560,y=345,width=224)
+speed_bar.place(anchor=NW,x=560,y=345,width=224,height=60)
 speed_bar.configure(background='LightCyan2',activebackground='cyan3')
+
+# ----- HP Frame contains Process Bar & Label ----- #
+theme_setting=ttk.Style()
+theme_setting.theme_use('classic') #('aqua', 'clam', 'alt', 'default', 'classic') are the choices
+theme_setting.configure("HP.Horizontal.TProgressbar", troughcolor='SteelBlue1', background='pale green')
+
+HP_frame=Frame(window,background='LightCyan2')
+HP_frame.pack()
+HP_frame.place(anchor=NE,x=550,y=345,width=160,height=60)
+
+HP_label1=Label(HP_frame,text='HP',bd=4,background='LightCyan2')
+HP_label1.pack()
+HP_label1.place(anchor=NW,x=0,y=0)
+
+HP_bar=ttk.Progressbar(HP_frame,orient='horizontal',length=150,mode='determinate')
+HP_bar.pack()
+HP_bar.config(value=HP_val,style='HP.Horizontal.TProgressbar')
+HP_bar.place(anchor=N,x=80,y=30)
+
+HP_val_label=Label(HP_frame,bd=4,background='LightCyan2')
+HP_val_label.pack()
+HP_val_label.configure(text=str(HP_val)+'/100')
+HP_val_label.place(anchor=NE,x=160,y=0)
 
 # ----- Player Status Info Frame ----- #
 player_info_frame=Frame(window,relief=GROOVE)
@@ -482,6 +505,27 @@ def saved_review():
     return
 
 # ---- <Main Script> ---- #
+
+def demo_HP_bar():
+    for i in range(0,101):
+        HP_val=i
+        HP_bar.config(value=HP_val)
+        HP_val_label.configure(text=str(HP_val)+'/100')
+        window.update()
+        delay(50)
+    delay(200)
+    for i in range(0,101):
+        HP_val=100-i
+        HP_bar.config(value=HP_val)
+        HP_val_label.configure(text=str(HP_val)+'/100')
+        window.update()
+        delay(50)
+    return
+
+InsDisplay('Demo - HP bar rolling')
+
+demo_HP_bar()
+
 
 while(lets_rock==0):
     window.update()

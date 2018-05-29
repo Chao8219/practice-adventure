@@ -16,6 +16,8 @@ arm=''
 weap=''
 foot=''
 
+HP_val=100
+
 user_input='' # set a string to store user's input
 entered=0 # check if user type in anything through Entry
 lets_rock=0 # game start flag

@@ -8,8 +8,8 @@
 	* Yellow - rare
 	* Purple - unique
 
-3. The equipment should be affected by player’s basic statues. Which means we have to have an extra column for additional statues brought by weaponry.
-4. The equipment should have the following statues:
+3. The equipment should be affected by player’s basic status. Which means we have to have an extra column for additional status brought by weaponry.
+4. The equipment should have the following status:
 	1. Name
 	2. Color
 	3. Basic STR+
