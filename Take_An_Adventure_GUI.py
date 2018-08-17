@@ -522,7 +522,7 @@ def demo_HP_bar():
         delay(50)
     return
 
-InsDisplay('Demo - HP bar rolling')
+InsDisplay('Demo - HP bar rolling, game will be starting soon. \n\n')
 
 demo_HP_bar()
 
