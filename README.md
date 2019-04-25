@@ -7,9 +7,21 @@ Directory /test/ contains test file.
 
 File read_user_info.py could read the info directly.
 
-# Update:
+## Use Venv
 
-The venv is remodified.
+You can use python virtual environemt, venv, to create the same env.
+Personally I would use conda env instead.
+To use venv, you need to have python in your computer.
+In this case, python 3.6.
+After installing python, you can change directory, i.e. command `cd`, to your repo directory.
+
+1st, use: `python3 -m venv rpg-venv` to create venv folder.
+
+2nd, use: `source rpg-venv/bin/activate` to enter your venv.
+
+3rd, use: `pip install -r requirements.txt` to install all required packages listed in txt file.
+
+4th, if you want to exit the venv, use `deactivate` to exit.
 
 ## Use Conda Env
 
