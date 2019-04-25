@@ -1,0 +1,9 @@
+#!/bin/bash
+conda_env="anaconda3/bin/activate rpg-env"
+repo_loc="git-chao-repos/practice-adventure"
+cd ~
+source ${conda_env}
+cd ${repo_loc}
+conda env export > conda-env.yml
+conda env export --no-builds > conda-no-builds-env.yml
+conda env export --no-builds -f environment.yml

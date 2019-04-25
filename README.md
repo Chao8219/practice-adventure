@@ -23,6 +23,8 @@ After installing python, you can change directory, i.e. command `cd`, to your re
 
 4th, if you want to exit the venv, use `deactivate` to exit.
 
+Please notice that venv has sligt difference with conda env.
+
 ## Use Conda Env
 
 To use conda env, you need to have anaconda first.
@@ -53,3 +55,9 @@ Here is the link for [Binder](https://mybinder.org/v2/gh/Chao8219/practice-adven
 Here is the link for [Nbviewer](https://nbviewer.jupyter.org/github/Chao8219/practice-adventure/tree/master/)
 
 Enjoy playing!
+
+## Quickly Update Conda Env
+
+Check out the **bash** directory. 
+Please modify the repo location locally, depending on your config.
+Then run `. export_conda_env`
