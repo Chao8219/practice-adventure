@@ -61,3 +61,7 @@ Enjoy playing!
 Check out the **bash** directory. 
 Please modify the repo location locally, depending on your config.
 Then run `. export_conda_env`
+
+## To Do
+
+- [ ] move all py script into jupyter notebook for better preview.
