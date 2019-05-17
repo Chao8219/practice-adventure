@@ -2,8 +2,8 @@ import sqlite3
 import string
 import os
 
-path='data'
-file=path+'/user_info.db'
+path = 'data'
+file = path + '/user_info.db'
 
 def create_file():
     print('Trying to Create Database...')
@@ -16,7 +16,7 @@ def create_file():
         cur.execute('''CREATE TABLE players_info
                      (NAME,STR,INT,AGI,DEF,FAI,SAN,LUC,HEAD,ARM,WEAP,FOOT)''')
         conn.commit()
-        conn.close
+        conn.close()
         print('Database created successfully.')
     else:
         print('File exists. Move on.')

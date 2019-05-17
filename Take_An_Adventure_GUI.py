@@ -3,7 +3,7 @@ from tkinter import ttk
 import time
 import string
 from random import randint
-from user_io import *
+import user_io
 from ini import *
 import sub_func
 from sub_func import *
@@ -327,7 +327,7 @@ def newgame_script():
         wait_for_input()
         if(user_input!=''):
             if(len(user_input)<=6):
-                if(find_info(user_input)==1):
+                if(user_io.find_info(user_input)==1):
                     InsDisplay('This name exists, please try another one.\n')
                 else:
                     InsDisplay('Now generating your status.')
@@ -335,7 +335,8 @@ def newgame_script():
                     random_generate_status()
                     cross_flie_var_trans()
                     player_name=user_input
-                    insert_info(player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot)
+                    user_io.insert_info(player_name,stre,inte,agi,defe,fai,
+                                        san,luc,head,arm,weap,foot)
                     update_status_showing()
                     InsDisplay('Done\n')
                     break
@@ -418,8 +419,8 @@ def saved_review():
         wait_for_input()
         if(user_input!=''):
             if(user_input=='1'):
-                ass=read_all()
-                if(empty_check()==1):
+                ass = user_io.read_all()
+                if(user_io.empty_check()==1):
                     InsDisplay('\nDisplaying...\n')
                     InsDisplay('Please select one name to display detail.\n')
                     for j in range (0,len(ass)):
@@ -428,9 +429,9 @@ def saved_review():
                     wait_for_input()
                     while(1):
                         if(user_input!=''):
-                            if(find_info(user_input)==1):
+                            if(user_io.find_info(user_input)==1):
                                 InsDisplay('Please see status list for details\n\n')
-                                ass2=read_info(user_input)
+                                ass2 = user_io.read_info(user_input)
                                 get_from_array(ass2)
                                 cross_flie_var_trans()
                                 update_status_showing()
@@ -448,12 +449,12 @@ def saved_review():
                 wait_for_input()
                 while(1):
                     if(user_input!=''):
-                        if(find_info(user_input)==0):
+                        if(user_io.find_info(user_input)==0):
                             InsDisplay('No such name.\n\n')
                             break
                         else:
                             TL('Loading...\n')
-                            ass2=read_info(user_input)
+                            ass2 = user_io.read_info(user_input)
                             get_from_array(ass2)
                             cross_flie_var_trans()
                             update_status_showing()
@@ -470,12 +471,12 @@ def saved_review():
                 wait_for_input()
                 while(1):
                     if(user_input!=''):
-                        if(find_info(user_input)==0):
+                        if(user_io.find_info(user_input)==0):
                             InsDisplay('No such name.\n\n')
                             break
                         else:
                             TL('Deleting...\n')
-                            delete_info(user_input)
+                            user_io.delete_info(user_input)
                             reset_status()
                             cross_flie_var_trans()
                             update_status_showing()
