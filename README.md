@@ -81,7 +81,7 @@ Enjoy playing!
 - [x] move all py script into jupyter notebook for better preview.
 - [ ] fix the perfermance in jupyter notebook
 - [ ] switch all array into numpy array
-- [ ] erase global pollution issue
+- [ ] get rid of global variables
 
 ## 4 Wrap It Up! Project
 
@@ -99,3 +99,11 @@ at least, try to make it better.
 
 In the future commits, I will use **WIU** to indicate the changes is 
 related with this "Wrap It Up!" project.
+
+## 5 Tkinter Tips
+
+There are several websites that might be useful to help to develop the GUI 
+that is based on tkinter.
+
+See:
+[tkdocs.com](https://tkdocs.com/index.html)
