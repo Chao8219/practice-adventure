@@ -4,9 +4,83 @@ import time
 import string
 from random import randint
 import user_io
-from ini import *
-import sub_func
-from sub_func import *
+
+# initialization
+user_io.create_file()
+
+player_name=''
+stre=''
+inte=''
+agi=''
+defe=''
+fai=''
+san=''
+luc=''
+head=''
+arm=''
+weap=''
+foot=''
+
+HP_val=100
+
+user_input='' # set a string to store user's input
+entered=0 # check if user type in anything through Entry
+lets_rock=0 # game start flag
+speed_var=0
+go_back_to_last=0
+move_on=0
+
+# sub functions
+def reset_status():
+    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    player_name=''
+    stre=''
+    inte=''
+    agi=''
+    defe=''
+    fai=''
+    san=''
+    luc=''
+    head=''
+    arm=''
+    weap=''
+    foot=''
+    return
+
+def random_generate_status():
+    global stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    stre=str(randint(1,15))
+    inte=str(randint(1,15))
+    agi=str(randint(2,15))
+    defe=str(randint(3,15))
+    fai=str(randint(5,15))
+    san=str(randint(20,40))
+    luc=str(randint(1,10))
+    head='Casual Hat'
+    arm='Casual Cloth'
+    weap='Twig'
+    foot='Casual Shoes'
+    return
+
+def get_from_array(arr):
+    global player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
+    player_name=arr[0]
+    g_stre=arr[1]
+    inte=arr[2]
+    agi=arr[3]
+    defe=arr[4]
+    fai=arr[5]
+    san=arr[6]
+    luc=arr[7]
+    head=arr[8]
+    arm=arr[9]
+    weap=arr[10]
+    foot=arr[11]
+    return
+
+def Remap(Old_Min,Old_Max,New_Min,New_Max):
+    # don't need it now, may be usefull in the future
+    return
 
 def cross_flie_var_trans():
     global player_name,stre,inte,agi,defe,fai,san,luc,head,arm,weap,foot
