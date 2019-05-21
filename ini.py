@@ -1,7 +1,7 @@
 # Initialization file
-from user_io import *
+import user_io
 
-create_file()
+user_io.create_file()
 
 player_name=''
 stre=''

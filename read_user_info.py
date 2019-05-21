@@ -2,8 +2,8 @@ import sqlite3
 import string
 import os
 
-path='data'
-file=path+'/user_info.db'
+path = 'data'
+file = path + '/user_info.db'
 
 def create_file():
     print('Trying to Create Database...')

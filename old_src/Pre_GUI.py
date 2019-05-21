@@ -12,18 +12,18 @@ def endWindow():
 def TypeLine(Line):
     global entered
     entered=0 # with new line, the user is not entering
-    type_in.config(state=DISABLED) # not allowed entering between lines
+    type_in.config(state='disabled') # not allowed entering between lines
     size=len(Line)
     for i in range(0,size):
-        script.config(state=NORMAL)
-        script.insert(END,Line[i])
-        script.see(END) # auto scroll the scrollbar
-        script.config(state=DISABLED)
+        script.config(state='normal')
+        script.insert('end',Line[i])
+        script.see('end') # auto scroll the scrollbar
+        script.config(state='disabled')
         window.update()
         window.after(100) # delay 100 ms
     window.after(400)
     window.update()
-    type_in.config(state=NORMAL)
+    type_in.config(state='normal')
     return
 
 def getText(event=None):
@@ -31,7 +31,7 @@ def getText(event=None):
     user_sub=type_in.get()
     print('The input is '+user_sub)
     entered=1
-    type_in.delete(0,END)
+    type_in.delete(0,'end')
     window.update()
     return
 
@@ -49,12 +49,12 @@ window.resizable(width=False, height=False)
 
 # ----- Scrollbar Initialization ---- #
 bar=Scrollbar(window)
-bar.pack(side=RIGHT,fill=Y)
+bar.pack(side='right',fill='y')
 
 # ----- Text Initialization ---- #
 script=Text(window,relief=RIDGE,font=("Helvetica",20),yscrollcommand=bar.set)
-script.pack(side=LEFT,fill=X)
-script.place(anchor=N,x=300,y=20,height=400,width=500)
+script.pack(side='left',fill='x')
+script.place(anchor='n',x=300,y=20,height=400,width=500)
 
 # ----- Button Initialization ---- #
 exit_button=Button(window,text='Exit',command=endWindow)

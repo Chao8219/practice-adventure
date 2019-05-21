@@ -1,4 +1,4 @@
-from tkinter import *
+import tkinter
 from tkinter import ttk
 import time
 import string
@@ -31,7 +31,7 @@ def reduce_speed():
     return
 
 def endWindow():
-    script.config(state=DISABLED)
+    script.config(state='disabled')
     window.update()
     window.destroy()
     return
@@ -40,57 +40,57 @@ def TN(Name): # Type in Name
     global entered
     PName=''
     entered=0 # with new line, the user is not entering
-    type_in.config(state=DISABLED) # not allowed entering between lines
-    enter_button.config(state=DISABLED)
+    type_in.config(state='disabled') # not allowed entering between lines
+    enter_button.config(state='disabled')
     PName=Name+': '
     for i in range(0,len(PName)):
-        script.config(state=NORMAL)
-        script.insert(END,PName[i])
+        script.config(state='normal')
+        script.insert('end',PName[i])
         window.update()
-        script.see(END) # auto scroll the scrollbar
-        script.config(state=DISABLED)
+        script.see('end') # auto scroll the scrollbar
+        script.config(state='disabled')
         reduce_speed() # delay 70 ms by default
         window.update()
     delay(400)
     window.update()
-    type_in.config(state=NORMAL)
-    enter_button.config(state=NORMAL)
+    type_in.config(state='normal')
+    enter_button.config(state='normal')
     return
 
 def TL(Line): # Type in Lines
     global entered
     entered=0 # with new line, the user is not entering
-    type_in.config(state=DISABLED) # not allowed entering between lines
-    enter_button.config(state=DISABLED)
+    type_in.config(state='disabled') # not allowed entering between lines
+    enter_button.config(state='disabled')
     for i in range(0,len(Line)):
-        script.config(state=NORMAL)
-        script.insert(END,Line[i])
+        script.config(state='normal')
+        script.insert('end',Line[i])
         window.update()
-        script.see(END) # auto scroll the scrollbar
-        script.config(state=DISABLED)
+        script.see('end') # auto scroll the scrollbar
+        script.config(state='disabled')
         reduce_speed() # delay 70 ms by default
         window.update()
     delay(400)
     window.update()
-    type_in.config(state=NORMAL)
-    enter_button.config(state=NORMAL)
+    type_in.config(state='normal')
+    enter_button.config(state='normal')
     return
 
 def InsDisplay(words): # Instantly display texts
     global entered
     entered=0 # with new line, the user is not entering
-    type_in.config(state=DISABLED) # not allowed entering between lines
-    enter_button.config(state=DISABLED)
-    script.config(state=NORMAL)
-    script.insert(END,words)
+    type_in.config(state='disabled') # not allowed entering between lines
+    enter_button.config(state='disabled')
+    script.config(state='normal')
+    script.insert('end',words)
     window.update()
-    script.see(END) # auto scroll the scrollbar
-    script.config(state=DISABLED)
+    script.see('end') # auto scroll the scrollbar
+    script.config(state='disabled')
     window.update()
     delay(400)
     window.update()
-    type_in.config(state=NORMAL)
-    enter_button.config(state=NORMAL)
+    type_in.config(state='normal')
+    enter_button.config(state='normal')
     return
 
 def GT(event=None): # Get Text
@@ -98,7 +98,7 @@ def GT(event=None): # Get Text
     user_input=type_in.get()
     print('The input is '+user_input)
     entered=1
-    type_in.delete(0,END)
+    type_in.delete(0,'end')
     window.update()
     return
 
@@ -121,94 +121,96 @@ def delay(t):
 
 
 # ----- General Initialization ----- #
-window=Tk()
+window = tkinter.Tk()
 window.title('Take A New Adventure')
 window.geometry('810x500') # 0.618 ratio
 window.resizable(width=False, height=False)
 window.configure(background='cornflower blue')
 
 # ----- Scrollbar Initialization ----- #
-bar=Scrollbar(window)
-bar.pack(side=RIGHT,fill=Y)
+bar = tkinter.Scrollbar(window)
+bar.pack(side='right',fill='y')
 
 # ----- Text Initialization ----- #
-script=Text(window,font=('Aerial',18),yscrollcommand=bar.set)
-script.pack(side=LEFT,fill=X)
-script.place(anchor=NW,x=10,y=10,height=320,width=540)
-script.configure(padx=10,pady=10,wrap=WORD,spacing1=5,spacing2=4,spacing3=5,background='LightCyan2')
+script = tkinter.Text(window,font=('Aerial',18),yscrollcommand=bar.set)
+script.pack(side='left',fill='x')
+script.place(anchor='nw',x=10,y=10,height=320,width=540)
+script.configure(padx=10,pady=10,wrap='word',spacing1=5,spacing2=4,spacing3=5,
+background='LightCyan2')
 
 # ----- Entry Initialization ----- #
-type_in=Entry(window,font=(18))
+type_in = tkinter.Entry(window,font=(18))
 type_in.bind('<Return>',GT) # GT=Get Lines
 type_in.pack()
-type_in.place(anchor=NW,x=10,y=345,width=150)
+type_in.place(anchor='nw',x=10,y=345,width=150)
 
 # ----- Start Game Button Initialization ----- #
-start_button=Button(window,text='Start Game',font=(14),command=Start)
+start_button = tkinter.Button(window,text='Start Game',font=(14),command=Start)
 start_button.pack()
-start_button.place(anchor=NW,x=10,y=385,height=30,width=90)
+start_button.place(anchor='nw',x=10,y=385,height=30,width=90)
 
 # ----- Exit Button Initialization ----- #
-exit_button=Button(window,text='Exit',font=(14),command=endWindow)
+exit_button = tkinter.Button(window,text='Exit',font=(14),command=endWindow)
 exit_button.pack()
-exit_button.place(anchor=NW,x=110,y=385,height=30,width=60)
+exit_button.place(anchor='nw',x=110,y=385,height=30,width=60)
 
 # ----- Enter Button Initialization ----- #
-enter_button=Button(window,text='Enter',font=(14),command=GT)
+enter_button = tkinter.Button(window,text='Enter',font=(14),command=GT)
 enter_button.pack()
-enter_button.place(anchor=NW,x=170,y=345,height=30,width=60)
+enter_button.place(anchor='nw',x=170,y=345,height=30,width=60)
 
 # ----- Speed Bar Initialization ----- #
-speed_val = IntVar()
-speed_bar=Scale(window,variable = speed_val,orient=HORIZONTAL,label='Game Speed+ Control Bar')
+speed_val = tkinter.IntVar()
+speed_bar = tkinter.Scale(window,variable = speed_val,
+orient='horizontal',label='Game Speed+ Control Bar')
 speed_bar.pack()
-speed_bar.place(anchor=NW,x=560,y=345,width=224,height=60)
+speed_bar.place(anchor='nw',x=560,y=345,width=224,height=60)
 speed_bar.configure(background='LightCyan2',activebackground='cyan3')
 
 # ----- HP Frame contains Process Bar & Label ----- #
-theme_setting=ttk.Style()
+theme_setting = ttk.Style()
 theme_setting.theme_use('classic') #('aqua', 'clam', 'alt', 'default', 'classic') are the choices
 theme_setting.configure("HP.Horizontal.TProgressbar", troughcolor='SteelBlue1', background='pale green')
 
-HP_frame=Frame(window,background='LightCyan2')
+HP_frame = tkinter.Frame(window,background='LightCyan2')
 HP_frame.pack()
-HP_frame.place(anchor=NE,x=550,y=345,width=160,height=60)
+HP_frame.place(anchor='ne',x=550,y=345,width=160,height=60)
 
-HP_label1=Label(HP_frame,text='HP',bd=4,background='LightCyan2')
+HP_label1 = tkinter.Label(HP_frame,text='HP',bd=4,background='LightCyan2')
 HP_label1.pack()
-HP_label1.place(anchor=NW,x=0,y=0)
+HP_label1.place(anchor='nw',x=0,y=0)
 
-HP_bar=ttk.Progressbar(HP_frame,orient='horizontal',length=150,mode='determinate')
+HP_bar = ttk.Progressbar(HP_frame,orient='horizontal',length=150,mode='determinate')
 HP_bar.pack()
 HP_bar.config(value=HP_val,style='HP.Horizontal.TProgressbar')
-HP_bar.place(anchor=N,x=80,y=30)
+HP_bar.place(anchor='n',x=80,y=30)
 
-HP_val_label=Label(HP_frame,bd=4,background='LightCyan2')
+HP_val_label = tkinter.Label(HP_frame,bd=4,background='LightCyan2')
 HP_val_label.pack()
 HP_val_label.configure(text=str(HP_val)+'/100')
-HP_val_label.place(anchor=NE,x=160,y=0)
+HP_val_label.place(anchor='ne',x=160,y=0)
 
 # ----- Player Status Info Frame ----- #
-player_info_frame=Frame(window,relief=GROOVE)
+player_info_frame = tkinter.Frame(window,relief='groove')
 player_info_frame.pack()
-player_info_frame.place(anchor=NW,x=560,y=10,height=190,width=224)
+player_info_frame.place(anchor='nw',x=560,y=10,height=190,width=224)
 player_info_frame.configure(background='LightCyan2')
 
-player_info_name=Label(player_info_frame,text="Your Name",background='LightCyan2')
+player_info_name = tkinter.Label(player_info_frame,text="Your Name",background='LightCyan2')
 player_info_name.pack()
-player_info_name.place(anchor=N,x=112,y=10)
+player_info_name.place(anchor='n',x=112,y=10)
 
-player_info_name2=Label(player_info_frame,background='LightCyan2')
+player_info_name2 = tkinter.Label(player_info_frame,background='LightCyan2')
 player_info_name2.pack()
-player_info_name2.place(anchor=N,x=112,y=30)
+player_info_name2.place(anchor='n',x=112,y=30)
 
-player_status_frame=Frame(player_info_frame,background='LightCyan2')
+player_status_frame = tkinter.Frame(player_info_frame,background='LightCyan2')
 player_status_frame.pack()
-player_status_frame.place(anchor=N,x=112,y=55,height=125,width=170)
+player_status_frame.place(anchor='n',x=112,y=55,height=125,width=170)
 
-player_status_name=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_name = tkinter.Listbox(player_status_frame,bd=0,background='LightCyan2')
 player_status_name.pack()
-player_status_name.place(anchor=NW,x=0,y=0,height=125,width=65)
+player_status_name.place(anchor='nw',x=0,y=0,height=125,width=65)
 player_status_name.insert(1,'Strenth ')
 player_status_name.insert(2,'Intellect ')
 player_status_name.insert(3,'Agility ')
@@ -216,69 +218,69 @@ player_status_name.insert(4,'Defense ')
 player_status_name.insert(5,'Faith ')
 player_status_name.insert(6,'Sanity ')
 player_status_name.insert(7,'Luck ')
-player_status_name.config(justify=RIGHT)
+player_status_name.config(justify='right')
 
-player_status_val=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_val = tkinter.Listbox(player_status_frame,bd=0,background='LightCyan2')
 player_status_val.pack()
-player_status_val.place(anchor=N,x=100,y=0,height=125,width=40)
-player_status_val.config(justify=CENTER)
+player_status_val.place(anchor='n',x=100,y=0,height=125,width=40)
+player_status_val.config(justify='center')
 for i in range(0,7):
     player_status_val.insert(i,'0')
 
-player_status_addval=Listbox(player_status_frame,bd=0,background='LightCyan2')
+player_status_addval = tkinter.Listbox(player_status_frame,bd=0,background='LightCyan2')
 player_status_addval.pack()
-player_status_addval.place(anchor=NE,x=160,y=0,height=125,width=40)
-player_status_addval.config(justify=CENTER)
+player_status_addval.place(anchor='ne',x=160,y=0,height=125,width=40)
+player_status_addval.config(justify='center')
 for i in range(0,7):
     player_status_addval.insert(i,'+0')
 
 # ----- Player Wear Info Frame ----- #
-player_wear_frame=Frame(window,relief=GROOVE)
+player_wear_frame = tkinter.Frame(window,relief='groove')
 player_wear_frame.pack()
-player_wear_frame.place(anchor=NW,x=560,y=210,height=120,width=224)
+player_wear_frame.place(anchor='nw',x=560,y=210,height=120,width=224)
 player_wear_frame.configure(background='LightCyan2')
 
-player_wear_frame_name=Label(player_wear_frame,text="Equipment",background='LightCyan2')
+player_wear_frame_name = tkinter.Label(player_wear_frame,text="Equipment",background='LightCyan2')
 player_wear_frame_name.pack()
-player_wear_frame_name.place(anchor=N,x=112,y=5)
+player_wear_frame_name.place(anchor='n',x=112,y=5)
 
-player_headwear=Label(player_wear_frame,text="Headwear",background='LightCyan2')
+player_headwear = tkinter.Label(player_wear_frame,text="Headwear",background='LightCyan2')
 player_headwear.pack()
-player_headwear.place(anchor=N,x=50,y=30)
+player_headwear.place(anchor='n',x=50,y=30)
 
-player_headwear2=Label(player_wear_frame,background='LightCyan2',text='None')
+player_headwear2 = tkinter.Label(player_wear_frame,background='LightCyan2',text='None')
 player_headwear2.pack()
-player_headwear2.place(anchor=N,x=50,y=50)
+player_headwear2.place(anchor='n',x=50,y=50)
 
-player_armour=Label(player_wear_frame,text="Armour",background='LightCyan2')
+player_armour = tkinter.Label(player_wear_frame,text="Armour",background='LightCyan2')
 player_armour.pack()
-player_armour.place(anchor=N,x=174,y=30)
+player_armour.place(anchor='n',x=174,y=30)
 
-player_armour2=Label(player_wear_frame,background='LightCyan2',text='None')
+player_armour2 = tkinter.Label(player_wear_frame,background='LightCyan2',text='None')
 player_armour2.pack()
-player_armour2.place(anchor=N,x=174,y=50)
+player_armour2.place(anchor='n',x=174,y=50)
 
-player_weapon=Label(player_wear_frame,text="Weapon",background='LightCyan2')
+player_weapon = tkinter.Label(player_wear_frame,text="Weapon",background='LightCyan2')
 player_weapon.pack()
-player_weapon.place(anchor=N,x=50,y=70)
+player_weapon.place(anchor='n',x=50,y=70)
 
-player_weapon2=Label(player_wear_frame,background='LightCyan2',text='None')
+player_weapon2 = tkinter.Label(player_wear_frame,background='LightCyan2',text='None')
 player_weapon2.pack()
-player_weapon2.place(anchor=N,x=50,y=90)
+player_weapon2.place(anchor='n',x=50,y=90)
 
-player_footwear=Label(player_wear_frame,text="Footwear",background='LightCyan2')
+player_footwear = tkinter.Label(player_wear_frame,text="Footwear",background='LightCyan2')
 player_footwear.pack()
-player_footwear.place(anchor=N,x=174,y=70)
+player_footwear.place(anchor='n',x=174,y=70)
 
-player_footwear2=Label(player_wear_frame,background='LightCyan2',text='None')
+player_footwear2 = tkinter.Label(player_wear_frame,background='LightCyan2',text='None')
 player_footwear2.pack()
-player_footwear2.place(anchor=N,x=174,y=90)
+player_footwear2.place(anchor='n',x=174,y=90)
 
 # ---- <Update Status Showing> ---- #
 def update_status_showing():
     player_info_name2.config(text=player_name)
     formed=[stre,inte,agi,defe,fai,san,luc]
-    player_status_val.delete(0,END) # clear listbox
+    player_status_val.delete(0,'end') # clear listbox
     for j in range(0,7):
         player_status_val.insert(j+1,formed[j])
     player_headwear2.config(text=head)
