@@ -4,6 +4,7 @@ import time
 import string
 from random import randint
 import user_io
+import numpy
 
 # initialization
 user_io.create_file()

@@ -82,6 +82,7 @@ Enjoy playing!
 - [ ] fix the perfermance in jupyter notebook
 - [ ] switch all array into numpy array
 - [ ] get rid of global variables
+- [ ] create player class
 
 ## 4 Wrap It Up! Project
 
