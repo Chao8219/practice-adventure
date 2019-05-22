@@ -1,14 +1,27 @@
+# a sample from 
+# https://docs.python.org/3.6/library/tkinter.html#a-simple-hello-world-program
 import tkinter as tk
 
-class MainApp(tk.Frame):
-    def __init__(self,parent,*args,**kwargs):
-        tk.Frame.__init__(self,parent,*args,**kwargs)
-        self.parent=parent
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
 
-if __name__=="__main__":
-    root=tk.Tk()
-    root.title('Here is a title.')
-    root.geometry('810x500') # 0.618 ratio
-    root.resizable(width=False, height=False)
-    MainApp(root).pack(side='top',fill='both',expand=True)
-    root.mainloop
+    def create_widgets(self):
+        self.hi_there = tk.Button(self)
+        self.hi_there["text"] = "Hello World\n(click me)"
+        self.hi_there["command"] = self.say_hi
+        self.hi_there.pack(side="top")
+
+        self.quit = tk.Button(self, text="QUIT", fg="red",
+                              command=self.master.destroy)
+        self.quit.pack(side="bottom")
+
+    def say_hi(self):
+        print("hi there, everyone!")
+
+root = tk.Tk()
+app = Application(master=root)
+app.mainloop()
