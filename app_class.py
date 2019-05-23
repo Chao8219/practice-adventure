@@ -37,6 +37,7 @@ class Application(tk.Frame):
         self.create_start_button()
         self.create_exit_button()
         self.create_enter_button()
+        self.create_speed_bar()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -81,6 +82,18 @@ class Application(tk.Frame):
         self.enter_button.pack()
         self.enter_button.place(anchor='nw', x=170, y=345, height=30, 
                             width=60)
+    
+    def create_speed_bar(self):
+        """ Create a speed bar to control the game speed. """
+        self.speed_val = tk.IntVar()
+        self.speed_bar = tk.Scale(self, variable=self.speed_val, 
+                                orient='horizontal', 
+                                label='Game Speed+ Control Bar')
+        self.speed_bar.pack()
+        self.speed_bar.place(anchor='nw', x=560, y=345, width=224, 
+                            height=60)
+        self.speed_bar.configure(background='LightCyan2', 
+                                activebackground='cyan3')
 
     def get_text(self, event=None):
         user_input = self.type_in.get()
