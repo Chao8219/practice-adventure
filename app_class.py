@@ -19,6 +19,7 @@ class Application(tk.Frame):
     def create_widgets(self):
         self.create_scroll_bar()
         self.create_script()
+        self.create_type_in()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -32,6 +33,22 @@ class Application(tk.Frame):
         self.script.configure(padx=10, pady=10, wrap='word', spacing1=5, 
                             spacing2=4, spacing3=5, 
                             background='LightCyan2')
+    
+    def create_type_in(self):
+        self.type_in = tk.Entry(self, font=(18))
+        self.type_in.bind('<Return>', self.get_text)
+        self.type_in.pack()
+        self.type_in.place(anchor='nw', x=10, y=345, width=150)
+    
+    def get_text(self, event=None):
+        user_input = self.type_in.get()
+        print('User has typed ' + user_input)
+        self.type_in.delete(0, 'end')
+        self.script.insert('end', user_input)
+        self.master.update()
+        
+
+ 
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
