@@ -140,6 +140,7 @@ class Application(tk.Frame):
                             width=224)
         self.info_frame.configure(background='LightCyan2')
         self.create_info_name()
+        self.create_status_frame()
     
     def create_info_name(self):
         """ Create the info name to display the player's name. """
@@ -166,13 +167,13 @@ class Application(tk.Frame):
                                     background='LightCyan2')
         self.status_name.pack()
         self.status_name.place(anchor='nw', x=0, y=0, height=125, width=65)
-        self.status_name.insert(1,'Strenth ')
-        self.status_name.insert(2,'Intellect ')
-        self.status_name.insert(3,'Agility ')
-        self.status_name.insert(4,'Defense ')
-        self.status_name.insert(5,'Faith ')
-        self.status_name.insert(6,'Sanity ')
-        self.status_name.insert(7,'Luck ')
+        self.status_name.insert(1, 'Strenth ')
+        self.status_name.insert(2, 'Intellect ')
+        self.status_name.insert(3, 'Agility ')
+        self.status_name.insert(4, 'Defense ')
+        self.status_name.insert(5, 'Faith ')
+        self.status_name.insert(6, 'Sanity ')
+        self.status_name.insert(7, 'Luck ')
         self.status_name.config(justify='right')
 
         self.status_val = tk.Listbox(self.status_frame, bd=0, 
