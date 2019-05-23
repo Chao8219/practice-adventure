@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font as tkfont
 
 class Application(tk.Frame):
     """ This class is to create a tkinter application instance
@@ -67,14 +68,17 @@ class Application(tk.Frame):
     def create_start_button(self):
         """ Create a button to be used to start the game. """
         # somehow the font size in Windows is not showing correctly.
-        self.start_button = tk.Button(self, text='Start Game', font=(14), 
+        button_helv10 = tkfont.Font(family='Helvetica', size=10)
+        self.start_button = tk.Button(self, text='Start Game', 
+                                    font=button_helv10, 
                                     command=self.start_game)
         self.start_button.pack()
         self.start_button.place(anchor='nw', x=10, y=385, height=30, 
                             width=90)
     
     def create_exit_button(self):
-        exit_button = tk.Button(self, text='Exit', font=(14),
+        button_helv10 = tkfont.Font(family='Helvetica', size=10)
+        exit_button = tk.Button(self, text='Exit', font=button_helv10,
                             command=self.close_window)
         exit_button.pack()
         exit_button.place(anchor='nw', x=110, y=385, height=30, width=60)
@@ -82,7 +86,9 @@ class Application(tk.Frame):
     def create_enter_button(self):
         """ Create a enter button to give users a alternative to submit
         what they have entered in the Entry widget. """
-        self.enter_button = tk.Button(self, text='Enter', font=(14), 
+        button_helv10 = tkfont.Font(family='Helvetica', size=10)
+        self.enter_button = tk.Button(self, text='Enter', 
+                                    font=button_helv10, 
                                     command=self.get_text)
         self.enter_button.pack()
         self.enter_button.place(anchor='nw', x=170, y=345, height=30, 
