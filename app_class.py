@@ -32,6 +32,9 @@ class Application(tk.Frame):
         self.master = master
         self.pack(anchor='w', fill='both', expand='1') 
         self.create_widgets()
+        while self.game_start_signal is False:
+            self.master.update()
+        print(self.orwell)
     
     def create_widgets(self):
         self.create_scroll_bar()
