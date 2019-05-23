@@ -13,7 +13,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.pack()
+        self.pack(anchor='w', fill='both', expand='1') 
         self.create_widgets()
     
     def create_widgets(self):
