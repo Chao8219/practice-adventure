@@ -35,6 +35,7 @@ class Application(tk.Frame):
         self.create_script()
         self.create_type_in()
         self.create_start_button()
+        self.create_exit_button()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -64,6 +65,12 @@ class Application(tk.Frame):
         self.start_button.pack()
         self.start_button.place(anchor='nw', x=10, y=385, height=30, 
                             width=90)
+    
+    def create_exit_button(self):
+        exit_button = tk.Button(self, text='Exit', font=(14),
+                            command=self.close_window)
+        exit_button.pack()
+        exit_button.place(anchor='nw', x=110, y=385, height=30, width=60)
 
     def get_text(self, event=None):
         user_input = self.type_in.get()
@@ -75,6 +82,11 @@ class Application(tk.Frame):
         """ Start the game. Method TBD. """
         print("Start Button has been pushed.")
         self.game_start_signal = True
+
+    def close_window(self, event=None):
+        self.script.config(state='disabled')
+        self.master.update()
+        self.master.destroy()
 
     def window_pause(self, time_t):
         """ this is a function would pause the window. time_t is in
