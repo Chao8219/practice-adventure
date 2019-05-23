@@ -36,6 +36,7 @@ class Application(tk.Frame):
         self.create_type_in()
         self.create_start_button()
         self.create_exit_button()
+        self.create_enter_button()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -71,6 +72,15 @@ class Application(tk.Frame):
                             command=self.close_window)
         exit_button.pack()
         exit_button.place(anchor='nw', x=110, y=385, height=30, width=60)
+
+    def create_enter_button(self):
+        """ Create a enter button to give users a alternative to submit
+        what they have entered in the Entry widget. """
+        self.enter_button = tk.Button(self, text='Enter', font=(14), 
+                                    command=self.get_text)
+        self.enter_button.pack()
+        self.enter_button.place(anchor='nw', x=170, y=345, height=30, 
+                            width=60)
 
     def get_text(self, event=None):
         user_input = self.type_in.get()
