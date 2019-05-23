@@ -41,6 +41,8 @@ class Application(tk.Frame):
         self.create_enter_button()
         self.create_speed_bar()
         self.create_health_bar()
+        self.create_info_frame()
+        self.create_wear_frame()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -128,7 +130,122 @@ class Application(tk.Frame):
                                     background='LightCyan2')
         self.hp_val_label.pack()
         self.hp_val_label.configure(text=str(self.hp_value)+'/100')
-        self.hp_val_label.place(anchor='ne', x=160, y=0)        
+        self.hp_val_label.place(anchor='ne', x=160, y=0)
+
+    def create_info_frame(self):
+        """ Create player's info frame. """
+        self.info_frame = tk.Frame(self, relief='groove')
+        self.info_frame.pack()
+        self.info_frame.place(anchor='nw', x=560, y=10, height=190, 
+                            width=224)
+        self.info_frame.configure(background='LightCyan2')
+        self.create_info_name()
+    
+    def create_info_name(self):
+        """ Create the info name to display the player's name. """
+        self.info_name_up = tk.Label(self.info_frame, text="Your Name", 
+                                background='LightCyan2')
+        self.info_name_up.pack()
+        self.info_name_up.place(anchor='n', x=112, y=10)
+
+        self.info_name_down = tk.Label(self.info_frame, 
+                                    background='LightCyan2')
+        self.info_name_down.pack()
+        self.info_name_down.place(anchor='n', x=112, y=30)
+    
+    def create_status_frame(self):
+        self.status_frame = tk.Frame(self.info_frame, 
+                                    background='LightCyan2')
+        self.status_frame.pack()
+        self.status_frame.place(anchor='n', x=112, y=55, height=125, 
+                            width=170)
+        self.create_status_widgets()
+    
+    def create_status_widgets(self):
+        self.status_name = tk.Listbox(self.status_frame, bd=0, 
+                                    background='LightCyan2')
+        self.status_name.pack()
+        self.status_name.place(anchor='nw', x=0, y=0, height=125, width=65)
+        self.status_name.insert(1,'Strenth ')
+        self.status_name.insert(2,'Intellect ')
+        self.status_name.insert(3,'Agility ')
+        self.status_name.insert(4,'Defense ')
+        self.status_name.insert(5,'Faith ')
+        self.status_name.insert(6,'Sanity ')
+        self.status_name.insert(7,'Luck ')
+        self.status_name.config(justify='right')
+
+        self.status_val = tk.Listbox(self.status_frame, bd=0, 
+                                    background='LightCyan2')
+        self.status_val.pack()
+        self.status_val.place(anchor='n', x=100, y=0, height=125, 
+                            width=40)
+        self.status_val.config(justify='center')
+        for i in range(0,7):
+            self.status_val.insert(i, '0')
+
+        self.status_addval = tk.Listbox(self.status_frame, bd=0, 
+                                    background='LightCyan2')
+        self.status_addval.pack()
+        self.status_addval.place(anchor='ne', x=160, y=0, height=125, 
+                                width=40)
+        self.status_addval.config(justify='center')
+        for i in range(0,7):
+            self.status_addval.insert(i, '+0')
+    
+    def create_wear_frame(self):
+        self.wear_frame = tk.Frame(self, relief='groove')
+        self.wear_frame.pack()
+        self.wear_frame.place(anchor='nw', x=560, y=210, height=120, 
+                            width=224)
+        self.wear_frame.configure(background='LightCyan2')
+        self.create_wears()
+    
+    def create_wears(self):
+        self.wear_frame_name = tk.Label(self.wear_frame, text="Equipment", 
+                                    background='LightCyan2')
+        self.wear_frame_name.pack()
+        self.wear_frame_name.place(anchor='n', x=112, y=5)
+
+        self.headwear = tk.Label(self.wear_frame, text="Headwear", 
+                                background='LightCyan2')
+        self.headwear.pack()
+        self.headwear.place(anchor='n', x=50, y=30)
+
+        self.headwear2 = tk.Label(self.wear_frame, background='LightCyan2', 
+                                text='None')
+        self.headwear2.pack()
+        self.headwear2.place(anchor='n', x=50, y=50)
+
+        self.armour = tk.Label(self.wear_frame, text="Armour", 
+                            background='LightCyan2')
+        self.armour.pack()
+        self.armour.place(anchor='n', x=174, y=30)
+
+        self.armour2 = tk.Label(self.wear_frame, background='LightCyan2', 
+                            text='None')
+        self.armour2.pack()
+        self.armour2.place(anchor='n', x=174, y=50)
+
+        self.weapon = tk.Label(self.wear_frame, text="Weapon", 
+                            background='LightCyan2')
+        self.weapon.pack()
+        self.weapon.place(anchor='n', x=50, y=70)
+
+        self.weapon2 = tk.Label(self.wear_frame, background='LightCyan2', 
+                            text='None')
+        self.weapon2.pack()
+        self.weapon2.place(anchor='n', x=50, y=90)
+
+        self.footwear = tk.Label(self.wear_frame, text="Footwear", 
+                                background='LightCyan2')
+        self.footwear.pack()
+        self.footwear.place(anchor='n', x=174, y=70)
+
+        self.footwear2 = tk.Label(self.wear_frame, background='LightCyan2', 
+                                text='None')
+        self.footwear2.pack()
+        self.footwear2.place(anchor='n', x=174, y=90)
    
     def get_text(self, event=None):
         user_input = self.type_in.get()
