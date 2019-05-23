@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 class Application(tk.Frame):
     """ This class is to create a tkinter application instance
@@ -23,6 +24,7 @@ class Application(tk.Frame):
     """
     orwell = 'BIG BROTHER IS WATCHING YOU'
     game_start_signal = False
+    hp_value = 100
 
     def __init__(self, master=None):
         super().__init__(master)
@@ -38,6 +40,7 @@ class Application(tk.Frame):
         self.create_exit_button()
         self.create_enter_button()
         self.create_speed_bar()
+        self.create_health_bar()
 
     def create_scroll_bar(self):
         self.bar = tk.Scrollbar(self)
@@ -94,7 +97,39 @@ class Application(tk.Frame):
                             height=60)
         self.speed_bar.configure(background='LightCyan2', 
                                 activebackground='cyan3')
+    
+    def create_health_bar(self):
+        """ Create a health points bar to display the current HP"""
+        theme_setting = ttk.Style()
+        theme_setting.theme_use('classic') 
+        #('aqua', 'clam', 'alt', 'default', 'classic') are the choices
+        theme_setting.configure("HP.Horizontal.TProgressbar", 
+                            troughcolor='SteelBlue1', 
+                            background='pale green')
 
+        self.hp_frame = tk.Frame(self, background='LightCyan2')
+        self.hp_frame.pack()
+        self.hp_frame.place(anchor='ne', x=550, y=345, width=160, 
+                        height=60)
+
+        self.hp_label1 = tk.Label(self.hp_frame, text='HP', bd=4, 
+                                background='LightCyan2')
+        self.hp_label1.pack()
+        self.hp_label1.place(anchor='nw', x=0, y=0)
+
+        self.hp_bar = ttk.Progressbar(self.hp_frame, orient='horizontal', 
+                                    length=150, mode='determinate')
+        self.hp_bar.pack()
+        self.hp_bar.config(value=self.hp_value, 
+                        style='HP.Horizontal.TProgressbar')
+        self.hp_bar.place(anchor='n', x=80, y=30)
+
+        self.hp_val_label = tk.Label(self.hp_frame, bd=4, 
+                                    background='LightCyan2')
+        self.hp_val_label.pack()
+        self.hp_val_label.configure(text=str(self.hp_value)+'/100')
+        self.hp_val_label.place(anchor='ne', x=160, y=0)        
+   
     def get_text(self, event=None):
         user_input = self.type_in.get()
         print('User has typed ' + user_input)
