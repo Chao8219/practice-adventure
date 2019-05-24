@@ -34,9 +34,8 @@ class Application(tk.Frame):
         self.create_widgets()
         while self.game_start_signal is False:
             self.master.update()
-        self.welcome()
+        self.welcome_screen()
         
-    
     def create_widgets(self):
         self.create_scroll_bar()
         self.create_script()
@@ -278,11 +277,6 @@ class Application(tk.Frame):
         """ this is a function would pause the window. time_t is in
         ms. """
         self.master.after(time_t)
- 
-    def welcome(self):
-        for i in range(30):
-            self.print_line(self.orwell+'\n')
-        pass
 
     def print_name(self, a_name):
         """ Print the name before each line. """
@@ -319,11 +313,32 @@ class Application(tk.Frame):
         self.master.update()
         self.type_in.config(state='normal')
         self.enter_button.config(state='normal')
+    
+    def quick_print(self, words):
+        self.type_in.config(state='disabled') 
+        # not allowed entering between lines
+        self.enter_button.config(state='disabled')
+        self.script.config(state='normal')
+        self.script.insert('end', words)
+        self.master.update()
+        self.script.see('end') # auto scroll the scrollbar
+        self.script.config(state='disabled')
+        self.master.update()
+        self.window_pause(400)
+        self.master.update()
+        self.type_in.config(state='normal')
+        self.enter_button.config(state='normal')
 
     def reduce_speed(self):
         ass = 0
         ass = 100 - int(self.speed_val.get())
         self.window_pause(ass)
+
+    def welcome_screen(self):
+        self.print_line('Hey, how are you doing today?' + '\n')
+        self.print_line('Welcome to try this project out.' + '\n')
+        self.print_line('This is a demo for apps and games' + 
+                    ' that is based on tkinter' + '\n')
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
