@@ -28,6 +28,8 @@ class Application(tk.Frame):
     hp_value = 100
     enter_signal = False
     user_input = ''
+    path = 'data'
+    file = path + '/user_info.db'
 
     def __init__(self, master=None):
         super().__init__(master)
