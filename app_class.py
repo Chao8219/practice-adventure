@@ -265,7 +265,6 @@ class Application(tk.Frame):
         self.enter_signal = True
         self.type_in.delete(0, 'end')
         self.master.update()
-        self.enter_signal = False
         
     def start_game(self, event=None):
         """ Start the game. Method TBD. """
@@ -284,6 +283,8 @@ class Application(tk.Frame):
 
     def print_name(self, a_name):
         """ Print the name before each line. """
+        self.enter_signal = False
+        # with new line, the user is not entering
         self.type_in.config(state='disabled') 
         # not allowed entering between lines
         self.enter_button.config(state='disabled')
@@ -302,6 +303,8 @@ class Application(tk.Frame):
         self.enter_button.config(state='normal')
 
     def print_line(self, a_line):
+        self.enter_signal = False
+        # with new line, the user is not entering
         self.type_in.config(state='disabled') 
         # not allowed entering between lines
         self.enter_button.config(state='disabled')
@@ -319,6 +322,8 @@ class Application(tk.Frame):
         self.enter_button.config(state='normal')
     
     def quick_print(self, words):
+        self.enter_signal = False
+        # with new line, the user is not entering
         self.type_in.config(state='disabled') 
         # not allowed entering between lines
         self.enter_button.config(state='disabled')
@@ -355,8 +360,17 @@ class Application(tk.Frame):
                         '2. Load from saved player list' + '\n')
         while(True):
             self.wait_for_input()
-            if(self.user_input!=''):
-                print(self.user_input)
+            if self.user_input == '1':
+                print(self.orwell)
+                break
+            elif self.user_input == '2':
+                self.load_from_saved()
+            else:
+                self.enter_signal = False
+                self.quick_print('Please only enter 1 or 2.\n')
+    
+    def load_from_saved(self):
+        print('Saved Players List is currently under construction.\n')
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')

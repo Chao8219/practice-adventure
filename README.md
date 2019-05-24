@@ -83,7 +83,7 @@ Enjoy playing!
 - [ ] switch all array into numpy array
 - [x] get rid of global variables
 - [x] create player class
-- [ ] fix the wait_for_input function
+- [x] fix the wait_for_input function
 
 ## 4 Wrap It Up! Project
 
