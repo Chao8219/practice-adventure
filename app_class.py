@@ -34,7 +34,8 @@ class Application(tk.Frame):
         self.create_widgets()
         while self.game_start_signal is False:
             self.master.update()
-        print(self.orwell)
+        self.welcome()
+        
     
     def create_widgets(self):
         self.create_scroll_bar()
@@ -277,6 +278,52 @@ class Application(tk.Frame):
         """ this is a function would pause the window. time_t is in
         ms. """
         self.master.after(time_t)
+ 
+    def welcome(self):
+        for i in range(30):
+            self.print_line(self.orwell+'\n')
+        pass
+
+    def print_name(self, a_name):
+        """ Print the name before each line. """
+        self.type_in.config(state='disabled') 
+        # not allowed entering between lines
+        self.enter_button.config(state='disabled')
+        the_name = a_name + ': '
+        for i in range(0, len(the_name)):
+            self.script.config(state='normal')
+            self.script.insert('end', the_name[i])
+            self.master.update()
+            self.script.see('end') # auto scroll the scrollbar
+            self.script.config(state='disabled')
+            self.reduce_speed() # delay 70 ms by default
+            self.master.update()
+        self.window_pause(400)
+        self.master.update()
+        self.type_in.config(state='normal')
+        self.enter_button.config(state='normal')
+
+    def print_line(self, a_line):
+        self.type_in.config(state='disabled') 
+        # not allowed entering between lines
+        self.enter_button.config(state='disabled')
+        for i in range(0, len(a_line)):
+            self.script.config(state='normal')
+            self.script.insert('end', a_line[i])
+            self.master.update()
+            self.script.see('end') # auto scroll the scrollbar
+            self.script.config(state='disabled')
+            self.reduce_speed() # delay 70 ms by default
+            self.master.update()
+        self.window_pause(400)
+        self.master.update()
+        self.type_in.config(state='normal')
+        self.enter_button.config(state='normal')
+
+    def reduce_speed(self):
+        ass = 0
+        ass = 100 - int(self.speed_val.get())
+        self.window_pause(ass)
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
