@@ -359,24 +359,50 @@ class Application(tk.Frame):
         self.print_line('You will see some basic ideas about' + 
                     ' my games, e.g. player\'s data access,' + 
                     ' basic game attributes.' + '\n')
-        self.print_line('Would you like to:' + '\n')
-        self.quick_print('1. Start as a new player.' + '\n' + 
-                        '2. Load from saved player list' + '\n')
         while(True):
+            self.print_line('Would you like to:' + '\n')
+            self.quick_print('1. Start as a new player.' + '\n' + 
+                            '2. Load from saved player list' + '\n')
             self.wait_for_input()
             if self.user_input == '1':
                 print(self.orwell)
                 self.clean_user_input()
                 break
             elif self.user_input == '2':
-                self.load_from_saved()
+                main_menu_signal = self.load_from_saved()
                 self.clean_user_input()
+                if main_menu_signal == False:
+                    break
+                else:
+                    pass
             else:
-                self.clean_user_input()
                 self.quick_print('Please only enter 1 or 2.\n')
+                self.clean_user_input()
     
     def load_from_saved(self):
-        print('Saved Players List is currently under construction.\n')
+        main_menu_signal = False
+        while(True):
+            self.print_line('Please select:\n')
+            self.quick_print('1. Review saved players list.\n')
+            self.quick_print('2. Load one player.\n')
+            self.quick_print('3. Delete one player.\n')
+            self.quick_print('4. Return to the main menu.\n')
+            self.wait_for_input()
+            if self.user_input == '1':
+                pass
+            elif self.user_input == '2':
+                pass
+            elif self.user_input == '3':
+                pass
+            elif self.user_input == '4':
+                main_menu_signal = True
+                return main_menu_signal
+            else:
+                # stay inside this while loop
+                self.quick_print('Please select between 1 to 4.\n')
+                self.clean_user_input()
+
+        # print('Saved Players List is currently under construction.\n')
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
