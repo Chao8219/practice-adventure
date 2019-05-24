@@ -55,7 +55,8 @@ class Application(tk.Frame):
         self.bar.pack(side='right',fill='y')
 
     def create_script(self):
-        self.script = tk.Text(self, font=('Aerial',18), 
+        script_helv10 = tkfont.Font(family='Helvetica', size=10)
+        self.script = tk.Text(self, font=script_helv10, 
                             yscrollcommand=self.bar.set)
         self.script.pack(side='left', fill='x')
         self.script.place(anchor='nw', x=10, y=10, height=320, width=540)
@@ -72,7 +73,6 @@ class Application(tk.Frame):
     
     def create_start_button(self):
         """ Create a button to be used to start the game. """
-        # somehow the font size in Windows is not showing correctly.
         button_helv10 = tkfont.Font(family='Helvetica', size=10)
         self.start_button = tk.Button(self, text='Start Game', 
                                     font=button_helv10, 
@@ -347,6 +347,10 @@ class Application(tk.Frame):
         while(self.enter_signal is False):
             self.master.update()
 
+    def clean_user_input(self):
+        self.enter_signal = False
+        self.user_input = ''
+
     def welcome_screen(self):
         self.print_line('Hey, how are you doing today?' + '\n')
         self.print_line('Welcome to try this project out.' + '\n')
@@ -362,11 +366,13 @@ class Application(tk.Frame):
             self.wait_for_input()
             if self.user_input == '1':
                 print(self.orwell)
+                self.clean_user_input()
                 break
             elif self.user_input == '2':
                 self.load_from_saved()
+                self.clean_user_input()
             else:
-                self.enter_signal = False
+                self.clean_user_input()
                 self.quick_print('Please only enter 1 or 2.\n')
     
     def load_from_saved(self):
