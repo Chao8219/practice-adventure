@@ -81,8 +81,9 @@ Enjoy playing!
 - [x] move all py script into jupyter notebook for better preview.
 - [ ] fix the perfermance in jupyter notebook
 - [ ] switch all array into numpy array
-- [ ] get rid of global variables
-- [ ] create player class
+- [x] get rid of global variables
+- [x] create player class
+- [ ] fix the wait_for_input function
 
 ## 4 Wrap It Up! Project
 

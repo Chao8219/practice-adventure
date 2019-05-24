@@ -26,6 +26,8 @@ class Application(tk.Frame):
     orwell = 'BIG BROTHER IS WATCHING YOU'
     game_start_signal = False
     hp_value = 100
+    enter_signal = False
+    user_input = ''
 
     def __init__(self, master=None):
         super().__init__(master)
@@ -258,10 +260,12 @@ class Application(tk.Frame):
         self.footwear2.place(anchor='n', x=174, y=90)
    
     def get_text(self, event=None):
-        user_input = self.type_in.get()
-        print('User has typed ' + user_input)
+        self.user_input = self.type_in.get()
+        print('User has typed ' + self.user_input)
+        self.enter_signal = True
         self.type_in.delete(0, 'end')
         self.master.update()
+        self.enter_signal = False
         
     def start_game(self, event=None):
         """ Start the game. Method TBD. """
@@ -333,12 +337,26 @@ class Application(tk.Frame):
         ass = 0
         ass = 100 - int(self.speed_val.get())
         self.window_pause(ass)
+    
+    def wait_for_input(self):
+        while(self.enter_signal is False):
+            self.master.update()
 
     def welcome_screen(self):
         self.print_line('Hey, how are you doing today?' + '\n')
         self.print_line('Welcome to try this project out.' + '\n')
         self.print_line('This is a demo for apps and games' + 
-                    ' that is based on tkinter' + '\n')
+                    ' that is based on tkinter. ' + '\n')
+        self.print_line('You will see some basic ideas about' + 
+                    ' my games, e.g. player\'s data access,' + 
+                    ' basic game attributes.' + '\n')
+        self.print_line('Would you like to:' + '\n')
+        self.quick_print('1. Start as a new player.' + '\n' + 
+                        '2. Load from saved player list' + '\n')
+        while(True):
+            self.wait_for_input()
+            if(self.user_input!=''):
+                print(self.user_input)
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
