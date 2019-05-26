@@ -288,7 +288,7 @@ class Application(tk.Frame):
         """ Print the name before each line. """
         self.enter_signal = False
         # with new line, the user is not entering
-        self.type_in.config(state='disabled') 
+        self.type_in.config(state='disabled')
         # not allowed entering between lines
         self.enter_button.config(state='disabled')
         the_name = a_name + ': '
@@ -364,6 +364,7 @@ class Application(tk.Frame):
                     ' basic game attributes.' + '\n')
         self.print_line('Please allow me to exam the game database' + 
                     ' status...\n')
+        # create path and file if there is none
         if user_io.create_file(self.path, self.file) is False:
             self.print_line('Game data file exists.\n')
         else:
@@ -398,15 +399,10 @@ class Application(tk.Frame):
             self.quick_print('4. Return to the main menu.\n')
             self.wait_for_input()
             if self.user_input == '1':
-                collected_data = user_io.read_all(self.file)
-                if collected_data == 0:
-                    self.quick_print('No data in database.\n')
+                if self.review_saved_players() is False:
+                    pass
                 else:
-                    self.quick_print('Please select one name to' + 
-                                    ' see details:')
-                    for j in range(0, len(collected_data)):
-                        self.quick_print(' ' + collected_data[j][0] + '\n')
-                    self.clean_user_input()
+                    pass
             elif self.user_input == '2':
                 pass
             elif self.user_input == '3':
@@ -420,6 +416,19 @@ class Application(tk.Frame):
                 self.clean_user_input()
 
         # print('Saved Players List is currently under construction.\n')
+
+    def review_saved_players(self):
+        if user_io.empty_check(self.file) is True:
+            self.quick_print('There is no saved player.\n')
+            return False
+        else:
+            obtained_all_player_info = user_io.read_all(self.file)
+            self.quick_print('Please select one name to see details.\n')
+            for j in range(0, len(obtained_all_player_info)):
+                self.quick_print(' ' + obtained_all_player_info[j][0] + 
+                                '\n')
+            self.clean_user_input()
+            return True
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')

@@ -58,17 +58,17 @@ def read_info(name, file):
 def read_all(file):
     conn = sqlite3.connect(file)
     cur = conn.cursor()
-    data = empty_check(file)
-    if data != 0:
-        cur.execute('SELECT * FROM players_info')
-        obtained_all_player_info = cur.fetchall()
-        # all players' info store in above variable
-        conn.close()
-        print('Database read successfully')
-        return obtained_all_player_info
-    else:
-        conn.close()
-        return 0
+    # data = empty_check(file)
+    # if data != 0:
+    cur.execute('SELECT * FROM players_info')
+    obtained_all_player_info = cur.fetchall()
+    # all players' info store in above variable
+    conn.close()
+    print('Database read successfully')
+    return obtained_all_player_info
+    # else:
+    #     conn.close()
+    #     return 0
 
 def update_info(name, attr, armor, file):
     stre, inte, agi, defe, fai, san, luc = attr[0] # unpack it
@@ -133,6 +133,11 @@ def find_info(name, file):
         return 1
 
 def empty_check(file):
+    """ This method is to check if the db file is empty or not. 
+    It returns True if it is empty.
+    It returns False if it is not empty, i.e., there is, at least one 
+    saved player in the db file.
+    """
     conn = sqlite3.connect(file)
     cur = conn.cursor()
     cur.execute('SELECT * FROM players_info')
@@ -140,7 +145,7 @@ def empty_check(file):
     if len(data) == 0:
         print('Empty Table')
         conn.close()
-        return 0
+        return False
     else:
         conn.close()
-        return 1
+        return True
