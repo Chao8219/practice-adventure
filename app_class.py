@@ -393,10 +393,10 @@ class Application(tk.Frame):
         main_menu_signal = False
         while(True):
             self.print_line('Please select:\n')
-            self.quick_print('1. Review saved players list.\n')
-            self.quick_print('2. Load one player.\n')
-            self.quick_print('3. Delete one player.\n')
-            self.quick_print('4. Return to the main menu.\n')
+            self.quick_print('  1. Review saved players list.\n')
+            self.quick_print('  2. Load one player.\n')
+            self.quick_print('  3. Delete one player.\n')
+            self.quick_print('  4. Return to the main menu.\n')
             self.wait_for_input()
             if self.user_input == '1':
                 if self.review_saved_players() is False:
