@@ -15,9 +15,10 @@ def create_file(path, file):
         conn.commit()
         conn.close()
         print('Database created successfully.')
+        return True
     else:
         print('File exists. Move on.')
-    return
+        return False
 
 def insert_info(name, attr, armor, file):
     stre, inte, agi, defe, fai, san, luc = attr[0] # unpack it

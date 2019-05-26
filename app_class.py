@@ -362,6 +362,12 @@ class Application(tk.Frame):
         self.print_line('You will see some basic ideas about' + 
                     ' my games, e.g. player\'s data access,' + 
                     ' basic game attributes.' + '\n')
+        self.print_line('Please allow me to exam the game database' + 
+                    ' status...\n')
+        if user_io.create_file(self.path, self.file) is False:
+            self.print_line('Game data file exists.\n')
+        else:
+            self.print_line('Game data file is created successfully.\n')
         while(True):
             self.print_line('Would you like to:' + '\n')
             self.quick_print('1. Start as a new player.' + '\n' + 
