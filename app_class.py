@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkfont
+import user_io
 
 class Application(tk.Frame):
     """ This class is to create a tkinter application instance
@@ -391,7 +392,15 @@ class Application(tk.Frame):
             self.quick_print('4. Return to the main menu.\n')
             self.wait_for_input()
             if self.user_input == '1':
-                pass
+                collected_data = user_io.read_all(self.file)
+                if collected_data == 0:
+                    self.quick_print('No data in database.\n')
+                else:
+                    self.quick_print('Please select one name to' + 
+                                    ' see details:')
+                    for j in range(0, len(collected_data)):
+                        self.quick_print(' ' + collected_data[j][0] + '\n')
+                    self.clean_user_input()
             elif self.user_input == '2':
                 pass
             elif self.user_input == '3':
