@@ -125,11 +125,11 @@ def find_info(name, file):
     data = cur.fetchone()[0]
     if data == 0:
         conn.close()
-        return 0
+        return False
     else:
         print('Found it!')
         conn.close()
-        return 1
+        return True
 
 def empty_check(file):
     """ This method is to check if the db file is empty or not. 

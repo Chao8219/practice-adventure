@@ -428,6 +428,14 @@ class Application(tk.Frame):
                 self.quick_print(' ' + obtained_all_player_info[j][0] + 
                                 '\n')
             self.clean_user_input()
+            while True:
+                self.wait_for_input()
+                if user_io.find_info(self.user_input, self.file) is False:
+                    self.quick_print('No such a name. \n')
+                    self.clean_user_input()
+                else:
+                    self.quick_print('Found it!')
+                    # to-do: display saved data
             return True
 
 if __name__ == '__main__':
