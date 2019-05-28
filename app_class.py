@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkfont
 import user_io
+import player_class
 
 class Application(tk.Frame):
     """ This class is to create a tkinter application instance
@@ -421,27 +422,41 @@ class Application(tk.Frame):
         if user_io.empty_check(self.file) is True:
             self.quick_print('There is no saved player.\n')
             return False
-        else:
-            obtained_all_player_info = user_io.read_all(self.file)
-            self.quick_print('Please select one name to see details.\n')
-            for j in range(0, len(obtained_all_player_info)):
-                self.quick_print(' ' + obtained_all_player_info[j][0] + 
-                                '\n')
-            self.clean_user_input()
-            while True:
-                self.wait_for_input()
-                if user_io.find_info(self.user_input, self.file) is False:
-                    self.quick_print('No such a name. \n')
-                    self.clean_user_input()
-                else:
-                    self.quick_print('Found it! Please see player' + 
-                                    'status for details.\n')
-                    player_info_list = user_io.read_info(self.user_input, 
-                                                        self.file)
-                    self.update_status_display(player_info_list)
-                    # to-do: display saved data
-            return True
+        obtained_all_player_info = user_io.read_all(self.file)
+        self.quick_print('Please select one name to see details.\n')
+        for j in range(0, len(obtained_all_player_info)):
+            self.quick_print(' ' + obtained_all_player_info[j][0] + 
+                            '\n')
+        self.clean_user_input()
+        while True:
+            self.wait_for_input()
+            if user_io.find_info(self.user_input, self.file) is False:
+                self.quick_print('No such a name. \n')
+                self.clean_user_input()
+                break
+            else:
+                self.quick_print('Found it! Please see player' + 
+                                'status for details.\n')
+                player_info_list = user_io.read_info(self.user_input, 
+                                                    self.file)
+                self.update_status_display(player_info_list)
+                self.clean_user_input()
+                break
+        return True
     
+    def load_one_player(self, name):
+        if user_io.empty_check(self.file) is True:
+            self.quick_print('There is no saved player.\n')
+            return False
+        self.quick_print('Please enter the name you want to load.\n')
+        self.wait_for_input()
+        if user_io.find_info(self.user_input, self.file) is False:
+            self.quick_print('There is no such a player.\n')
+        else:
+            # to-do: read one player's info
+            # and create a player instance.
+            pass    
+
     def update_status_display(self, player_info_list):
         self.display_player_name.config(text=player_info_list[0])
         player_attr = player_info_list[1:8]

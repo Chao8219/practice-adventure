@@ -54,13 +54,13 @@ class CreatePlayer:
     foot = ''
 
     health_value = 100.0
-    def __init__(self, name, new_born=True, *args, **kwargs):
+    def __init__(self, name, new_born=True, *args):
         self.name = name
         if new_born is True:
             self.gen_ran_attr()
             self.init_armor()
         else:
-            pass
+            self.assign_values(*args)
         return
     
     def gen_ran_attr(self, *args, **kwargs):
@@ -81,6 +81,23 @@ class CreatePlayer:
         self.body = 'Casual Cloth'
         self.weap = 'Twig'
         self.foot = 'Casual Shoes'
+        self.armor[:] = (self.head, self.body, self.weap, self.foot)
+    
+    def assign_values(self, player_info_list):
+        self.name = player_info_list[0]
+        self.stre = player_info_list[1]
+        self.inte = player_info_list[2]
+        self.agi = player_info_list[3]
+        self.defe = player_info_list[4]
+        self.fai = player_info_list[5]
+        self.san = player_info_list[6]
+        self.luc = player_info_list[7]
+        self.attr[:] = (self.stre, self.inte, self.agi, self.defe, 
+                        self.fai, self.san, self.luc)
+        self.head = player_info_list[8]
+        self.body = player_info_list[9]
+        self.weap = player_info_list[10]
+        self.foot = player_info_list[11]
         self.armor[:] = (self.head, self.body, self.weap, self.foot)
 
 if __name__ == '__main__':
