@@ -158,15 +158,15 @@ class Application(tk.Frame):
     
     def create_info_name(self):
         """ Create the info name to display the player's name. """
-        self.info_name_up = tk.Label(self.info_frame, text="Your Name", 
+        self.info_yourname = tk.Label(self.info_frame, text="Your Name", 
                                 background='LightCyan2')
-        self.info_name_up.pack()
-        self.info_name_up.place(anchor='n', x=112, y=10)
+        self.info_yourname.pack()
+        self.info_yourname.place(anchor='n', x=112, y=10)
 
-        self.info_name_down = tk.Label(self.info_frame, 
+        self.display_player_name = tk.Label(self.info_frame, 
                                     background='LightCyan2')
-        self.info_name_down.pack()
-        self.info_name_down.place(anchor='n', x=112, y=30)
+        self.display_player_name.pack()
+        self.display_player_name.place(anchor='n', x=112, y=30)
     
     def create_status_frame(self):
         self.status_frame = tk.Frame(self.info_frame, 
@@ -443,7 +443,16 @@ class Application(tk.Frame):
             return True
     
     def update_status_display(self, player_info_list):
-        self.info_name_down.config(text=player_info_list[0])
+        self.display_player_name.config(text=player_info_list[0])
+        player_attr = player_info_list[1:8]
+        player_wears = player_info_list[8:]
+        self.status_val.delete(0, 'end') # clear listbox
+        for j in range(0, 7):
+            self.status_val.insert(j+1, player_attr[j])
+        self.headwear2.config(text=player_wears[0])
+        self.armour2.config(text=player_wears[1])
+        self.weapon2.config(text=player_wears[2])
+        self.footwear2.config(text=player_wears[3])
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
