@@ -43,17 +43,12 @@ def insert_info(name, attr, armor, file):
 def read_info(name, file):
     conn = sqlite3.connect(file)
     cur = conn.cursor()
-    data = empty_check(file)
-    if data != 0:
-        cur.execute('SELECT * FROM players_info WHERE NAME=?', (name, ))
-        obtained_player_info = cur.fetchone()
-        # this player's info store in above variable
-        conn.close()
-        print('Database read successfully')
-        return obtained_player_info
-    else:
-        conn.close()
-        return 0
+    cur.execute('SELECT * FROM players_info WHERE NAME=?', (name, ))
+    obtained_player_info = cur.fetchone()
+    # this player's info store in above variable
+    conn.close()
+    print('Database read successfully')
+    return obtained_player_info
 
 def read_all(file):
     """ This method is to read all info at one time

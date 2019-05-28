@@ -434,9 +434,16 @@ class Application(tk.Frame):
                     self.quick_print('No such a name. \n')
                     self.clean_user_input()
                 else:
-                    self.quick_print('Found it!')
+                    self.quick_print('Found it! Please see player' + 
+                                    'status for details.\n')
+                    player_info_list = user_io.read_info(self.user_input, 
+                                                        self.file)
+                    self.update_status_display(player_info_list)
                     # to-do: display saved data
             return True
+    
+    def update_status_display(self, player_info_list):
+        self.info_name_down.config(text=player_info_list[0])
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
