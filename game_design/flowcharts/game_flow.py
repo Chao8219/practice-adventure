@@ -16,6 +16,8 @@ dot.node('welcome_script', 'Display welcome script')
 dot.node('enter_yourname', 'User enter his/her name')
 dot.node('display_player_status', ('Player\'s status is\n' + 
     'displayed on the right'))
+dot.node('tell_user_no_data', 'Tell user there is\nno data in file')
+dot.node('show_saved_names','Display saved names')
 dot.node('game_main_script', 'The game starts from beginning')
 
 # dotted box shpae for whatever is under the GUI, 
@@ -24,6 +26,7 @@ dot.attr('node', shape='box', style='dotted')
 dot.node('create_db_file', 'Create db file')
 dot.node('get_new_player', ('Generate a\n' + 
     'new player object'))
+dot.node('get_all_data', 'Get all data\nfrom db file')
 
 # diamond shape for decisions
 dot.attr('node', shape='diamond', style='solid')
@@ -38,6 +41,10 @@ dot.node('user_io', ('1.Review all players\n' +
     '4.Return to the upper menu\n' + 
     user_enter_random))
 dot.node('player_data_check1', 'See if the name exists\nin the db file')
+dot.node('check_db_empty', 'Check if db file has\nany players data')
+dot.node('user_enter_name', ('1.User enters one name\n' + 
+    '2.Return to upper menu\n' + 
+    user_enter_random))
 
 # edges
 dot.edge('start', 'game_started')
@@ -54,6 +61,14 @@ dot.edge('get_new_player', 'display_player_status')
 dot.edge('display_player_status', 'game_main_script')
 dot.edge('new_game_or_not', 'user_io', xlabel='2')
 dot.edge('new_game_or_not', 'new_game_or_not', xlabel='www')
+dot.edge('user_io', 'check_db_empty', xlabel='1')
+dot.edge('check_db_empty', 'tell_user_no_data', xlabel='no data')
+dot.edge('tell_user_no_data', 'user_io')
+dot.edge('check_db_empty', 'get_all_data', xlabel='some data')
+dot.edge('get_all_data', 'show_saved_names')
+dot.edge('show_saved_names', 'user_enter_name')
+dot.edge('user_enter_name', 'user_io', xlabel='2')
+dot.edge('user_enter_name', 'user_enter_name', xlabel='www')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')
 dot.edge('game_main_script', 'end')
 
