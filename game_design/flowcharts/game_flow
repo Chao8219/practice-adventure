@@ -1,0 +1,27 @@
+digraph game_flow_parent {
+	label="Game Flow Chart
+by Chao" splines=ortho
+	node [shape=oval]
+	start [label="GUI is shown on screen"]
+	end [label="GUI is closed"]
+	node [shape=box]
+	game_started [label="The start game is clicked"]
+	welcome_script [label="The welcome script is displayed"]
+	node [shape=diamond]
+	new_game_or_not [label="1.Start a new game
+2.Load from saved players
+3.User enter other things"]
+	user_io [label="1.Review all players
+2.Load one player
+3.Delete one player
+4.Return to the upper menu"]
+	start -> game_started
+	game_started -> welcome_script
+	welcome_script -> new_game_or_not
+	new_game_or_not -> user_io [xlabel=2]
+	user_io -> new_game_or_not [xlabel=4]
+	new_game_or_not -> new_game_or_not
+	subgraph game_flow_child {
+		rank=same
+	}
+}
