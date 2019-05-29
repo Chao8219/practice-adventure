@@ -2,25 +2,49 @@ digraph game_flow_parent {
 	label="Game Flow Chart
 by Chao" splines=ortho
 	node [shape=oval]
-	start [label="GUI is shown on screen"]
-	end [label="GUI is closed"]
-	node [shape=box]
-	game_started [label="The start game is clicked"]
-	welcome_script [label="The welcome script is displayed"]
-	node [shape=diamond]
+	start [label="GUI appears"]
+	end [label="GUI distroys
+game ends"]
+	node [shape=box style=solid]
+	game_started [label="The start game button
+is clicked"]
+	welcome_script [label="Display welcome script"]
+	enter_yourname [label="User enter his/her name"]
+	display_player_status [label="Player's status is
+displayed on the right"]
+	game_main_script [label="The game starts from beginning"]
+	node [shape=box style=dotted]
+	create_db_file [label="Create db file"]
+	get_new_player [label="Generate a
+new player object"]
+	node [shape=diamond style=solid]
+	check_db_file [label="Check if db file exists"]
 	new_game_or_not [label="1.Start a new game
 2.Load from saved players
-3.User enter other things"]
+www: user enter other things"]
 	user_io [label="1.Review all players
 2.Load one player
 3.Delete one player
-4.Return to the upper menu"]
+4.Return to the upper menu
+www: user enter other things"]
+	player_data_check1 [label="See if the name exists
+in the db file"]
 	start -> game_started
-	game_started -> welcome_script
+	game_started -> check_db_file
+	check_db_file -> create_db_file [xlabel=No]
+	create_db_file -> welcome_script
+	check_db_file -> welcome_script [xlabel=Yes]
 	welcome_script -> new_game_or_not
+	new_game_or_not -> enter_yourname [xlabel=1]
+	enter_yourname -> player_data_check1
+	player_data_check1 -> enter_yourname [xlabel=Yes]
+	player_data_check1 -> get_new_player [xlabel=No]
+	get_new_player -> display_player_status
+	display_player_status -> game_main_script
 	new_game_or_not -> user_io [xlabel=2]
+	new_game_or_not -> new_game_or_not [xlabel=www]
 	user_io -> new_game_or_not [xlabel=4]
-	new_game_or_not -> new_game_or_not
+	game_main_script -> end
 	subgraph game_flow_child {
 		rank=same
 	}
