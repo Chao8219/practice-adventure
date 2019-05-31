@@ -27,6 +27,11 @@ dot.node('create_db_file', 'Create db file')
 dot.node('get_new_player', ('Generate a\n' + 
     'new player object'))
 dot.node('get_all_data', 'Get all data\nfrom db file')
+dot.node('load_player_object', ('Cenerate a\n' +
+    'new player object and\n' +
+    'assign the player\'s data\n' +
+    'from the db file\n' + 
+    'while instantiation'))
 
 # diamond shape for decisions
 dot.attr('node', shape='diamond', style='solid')
@@ -45,6 +50,7 @@ dot.node('check_db_empty', 'Check if db file has\nany players data')
 dot.node('user_enter_name', ('1.User enters one name\n' + 
     '2.Return to upper menu\n' + 
     user_enter_random))
+dot.node('player_data_check2', 'See if the name exists\nin the db file')
 
 # edges
 dot.edge('start', 'game_started')
@@ -67,6 +73,9 @@ dot.edge('tell_user_no_data', 'user_io')
 dot.edge('check_db_empty', 'get_all_data', xlabel='some data')
 dot.edge('get_all_data', 'show_saved_names')
 dot.edge('show_saved_names', 'user_enter_name')
+dot.edge('user_enter_name', 'player_data_check2', xlabel='1')
+dot.edge('player_data_check2', 'load_player_object', xlabel='Yes')
+dot.edge('player_data_check2', 'user_enter_name', xlabel='No')
 dot.edge('user_enter_name', 'user_io', xlabel='2')
 dot.edge('user_enter_name', 'user_enter_name', xlabel='www')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')

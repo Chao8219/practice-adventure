@@ -22,6 +22,11 @@ no data in file"]
 new player object"]
 	get_all_data [label="Get all data
 from db file"]
+	load_player_object [label="Cenerate a
+new player object and
+assign the player's data
+from the db file
+while instantiation"]
 	node [shape=diamond style=solid]
 	check_db_file [label="Check if db file exists"]
 	new_game_or_not [label="1.Start a new game
@@ -39,6 +44,8 @@ any players data"]
 	user_enter_name [label="1.User enters one name
 2.Return to upper menu
 www: user enter other things"]
+	player_data_check2 [label="See if the name exists
+in the db file"]
 	start -> game_started
 	game_started -> check_db_file
 	check_db_file -> create_db_file [xlabel=No]
@@ -59,6 +66,9 @@ www: user enter other things"]
 	check_db_empty -> get_all_data [xlabel="some data"]
 	get_all_data -> show_saved_names
 	show_saved_names -> user_enter_name
+	user_enter_name -> player_data_check2 [xlabel=1]
+	player_data_check2 -> load_player_object [xlabel=Yes]
+	player_data_check2 -> user_enter_name [xlabel=No]
 	user_enter_name -> user_io [xlabel=2]
 	user_enter_name -> user_enter_name [xlabel=www]
 	user_io -> new_game_or_not [xlabel=4]
