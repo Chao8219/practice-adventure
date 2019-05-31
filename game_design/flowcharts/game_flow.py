@@ -23,6 +23,7 @@ dot.node('display_player_status2', ('Player\'s status is\n' +
     'displayed on the right'))
 dot.node('game_resume', ('Game begins from where\n' +
     'user exited last time'))
+dot.node('tell_user_no_data2', 'Tell user there is\nno data in file')
 
 # dotted box shpae for whatever is under the GUI, 
 # could not be seen by user
@@ -55,6 +56,11 @@ dot.node('user_enter_name', ('1.User enters one name\n' +
     '2.Return to upper menu\n' + 
     user_enter_random))
 dot.node('player_data_check2', 'See if the name exists\nin the db file')
+dot.node('check_db_empty2', 'Check if db file has\nany players data')
+dot.node('player_data_check3', 'See if the name exists\nin the db file')
+dot.node('user_enter_name2', ('1.User enters one name\n' + 
+    '2.Return to upper menu\n' + 
+    user_enter_random))
 
 # edges
 dot.edge('start', 'game_started')
@@ -84,6 +90,13 @@ dot.edge('display_player_status2', 'user_io')
 dot.edge('player_data_check2', 'user_enter_name', xlabel='No')
 dot.edge('user_enter_name', 'user_io', xlabel='2')
 dot.edge('user_enter_name', 'user_enter_name', xlabel='www')
+dot.edge('user_io', 'check_db_empty2', xlabel='2')
+dot.edge('check_db_empty2', 'tell_user_no_data2', xlabel='no data')
+dot.edge('check_db_empty2', 'user_enter_name2', xlabel='some data')
+dot.edge('user_enter_name2', 'player_data_check3', xlabel='1')
+dot.edge('user_enter_name2', 'user_io', xlabel='2')
+dot.edge('user_enter_name2', 'user_enter_name2', xlabel='www')
+dot.edge('tell_user_no_data2', 'user_io')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')
 dot.edge('game_resume', 'end')
 dot.edge('game_main_script', 'end')

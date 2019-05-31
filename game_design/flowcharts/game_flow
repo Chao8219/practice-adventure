@@ -20,6 +20,8 @@ no data in file"]
 displayed on the right"]
 	game_resume [label="Game begins from where
 user exited last time"]
+	tell_user_no_data2 [label="Tell user there is
+no data in file"]
 	node [shape=box style=dotted]
 	create_db_file [label="Create db file"]
 	get_new_player [label="Generate a
@@ -50,6 +52,13 @@ any players data"]
 www: user enter other things"]
 	player_data_check2 [label="See if the name exists
 in the db file"]
+	check_db_empty2 [label="Check if db file has
+any players data"]
+	player_data_check3 [label="See if the name exists
+in the db file"]
+	user_enter_name2 [label="1.User enters one name
+2.Return to upper menu
+www: user enter other things"]
 	start -> game_started
 	game_started -> check_db_file
 	check_db_file -> create_db_file [xlabel=No]
@@ -77,6 +86,13 @@ in the db file"]
 	player_data_check2 -> user_enter_name [xlabel=No]
 	user_enter_name -> user_io [xlabel=2]
 	user_enter_name -> user_enter_name [xlabel=www]
+	user_io -> check_db_empty2 [xlabel=2]
+	check_db_empty2 -> tell_user_no_data2 [xlabel="no data"]
+	check_db_empty2 -> user_enter_name2 [xlabel="some data"]
+	user_enter_name2 -> player_data_check3 [xlabel=1]
+	user_enter_name2 -> user_io [xlabel=2]
+	user_enter_name2 -> user_enter_name2 [xlabel=www]
+	tell_user_no_data2 -> user_io
 	user_io -> new_game_or_not [xlabel=4]
 	game_resume -> end
 	game_main_script -> end
