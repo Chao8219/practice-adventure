@@ -7,7 +7,7 @@ dot.attr(label='Game Flow Chart\nby Chao', splines='ortho')
 dot.attr('node', shape='oval')
 # first input is label, second input is text on the node
 dot.node('start', 'GUI appears')
-dot.node('end', 'GUI distroys\ngame ends')
+dot.node('end', 'GUI distroys\nor game ends')
 
 # soild box shape for whatever could be seen on the GUI
 dot.attr('node', shape='box', style='solid')
@@ -19,6 +19,10 @@ dot.node('display_player_status', ('Player\'s status is\n' +
 dot.node('tell_user_no_data', 'Tell user there is\nno data in file')
 dot.node('show_saved_names','Display saved names')
 dot.node('game_main_script', 'The game starts from beginning')
+dot.node('display_player_status2', ('Player\'s status is\n' + 
+    'displayed on the right'))
+dot.node('game_resume', ('Game begins from where\n' +
+    'user exited last time'))
 
 # dotted box shpae for whatever is under the GUI, 
 # could not be seen by user
@@ -75,10 +79,13 @@ dot.edge('get_all_data', 'show_saved_names')
 dot.edge('show_saved_names', 'user_enter_name')
 dot.edge('user_enter_name', 'player_data_check2', xlabel='1')
 dot.edge('player_data_check2', 'load_player_object', xlabel='Yes')
+dot.edge('load_player_object', 'display_player_status2')
+dot.edge('display_player_status2', 'game_resume')
 dot.edge('player_data_check2', 'user_enter_name', xlabel='No')
 dot.edge('user_enter_name', 'user_io', xlabel='2')
 dot.edge('user_enter_name', 'user_enter_name', xlabel='www')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')
+dot.edge('game_resume', 'end')
 dot.edge('game_main_script', 'end')
 
 # child graph for rank level
