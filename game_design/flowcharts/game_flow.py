@@ -24,6 +24,8 @@ dot.node('display_player_status2', ('Player\'s status is\n' +
 dot.node('game_resume', ('Game begins from where\n' +
     'user exited last time'))
 dot.node('tell_user_no_data2', 'Tell user there is\nno data in file')
+dot.node('display_player_status3', ('Player\'s status is\n' + 
+    'displayed on the right'))
 
 # dotted box shpae for whatever is under the GUI, 
 # could not be seen by user
@@ -33,6 +35,11 @@ dot.node('get_new_player', ('Generate a\n' +
     'new player object'))
 dot.node('get_all_data', 'Get all data\nfrom db file')
 dot.node('load_player_object', ('Cenerate a\n' +
+    'new player object and\n' +
+    'assign the player\'s data\n' +
+    'from the db file\n' + 
+    'while instantiation'))
+dot.node('load_player_object2', ('Cenerate a\n' +
     'new player object and\n' +
     'assign the player\'s data\n' +
     'from the db file\n' + 
@@ -94,6 +101,10 @@ dot.edge('user_io', 'check_db_empty2', xlabel='2')
 dot.edge('check_db_empty2', 'tell_user_no_data2', xlabel='no data')
 dot.edge('check_db_empty2', 'user_enter_name2', xlabel='some data')
 dot.edge('user_enter_name2', 'player_data_check3', xlabel='1')
+dot.edge('player_data_check3', 'user_enter_name2', xlabel='No')
+dot.edge('player_data_check3', 'load_player_object2', xlabel='Yes')
+dot.edge('load_player_object2', 'display_player_status3')
+dot.edge('display_player_status3', 'game_resume')
 dot.edge('user_enter_name2', 'user_io', xlabel='2')
 dot.edge('user_enter_name2', 'user_enter_name2', xlabel='www')
 dot.edge('tell_user_no_data2', 'user_io')

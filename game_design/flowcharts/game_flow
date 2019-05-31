@@ -22,6 +22,8 @@ displayed on the right"]
 user exited last time"]
 	tell_user_no_data2 [label="Tell user there is
 no data in file"]
+	display_player_status3 [label="Player's status is
+displayed on the right"]
 	node [shape=box style=dotted]
 	create_db_file [label="Create db file"]
 	get_new_player [label="Generate a
@@ -29,6 +31,11 @@ new player object"]
 	get_all_data [label="Get all data
 from db file"]
 	load_player_object [label="Cenerate a
+new player object and
+assign the player's data
+from the db file
+while instantiation"]
+	load_player_object2 [label="Cenerate a
 new player object and
 assign the player's data
 from the db file
@@ -90,6 +97,10 @@ www: user enter other things"]
 	check_db_empty2 -> tell_user_no_data2 [xlabel="no data"]
 	check_db_empty2 -> user_enter_name2 [xlabel="some data"]
 	user_enter_name2 -> player_data_check3 [xlabel=1]
+	player_data_check3 -> user_enter_name2 [xlabel=No]
+	player_data_check3 -> load_player_object2 [xlabel=Yes]
+	load_player_object2 -> display_player_status3
+	display_player_status3 -> game_resume
 	user_enter_name2 -> user_io [xlabel=2]
 	user_enter_name2 -> user_enter_name2 [xlabel=www]
 	tell_user_no_data2 -> user_io
