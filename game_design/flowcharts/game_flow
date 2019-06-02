@@ -24,6 +24,11 @@ user exited last time"]
 no data in file"]
 	display_player_status3 [label="Player's status is
 displayed on the right"]
+	tell_user_no_data3 [label="Tell user there is
+no data in file"]
+	before_erase_player [label="Warn user that the player
+data once deleted would
+be gone forever"]
 	node [shape=box style=dotted]
 	create_db_file [label="Create db file"]
 	get_new_player [label="Generate a
@@ -40,6 +45,8 @@ new player object and
 assign the player's data
 from the db file
 while instantiation"]
+	delete_player [label="Delete the player
+data in db file"]
 	node [shape=diamond style=solid]
 	check_db_file [label="Check if db file exists"]
 	new_game_or_not [label="1.Start a new game
@@ -66,6 +73,15 @@ in the db file"]
 	user_enter_name2 [label="1.User enters one name
 2.Return to upper menu
 www: user enter other things"]
+	check_db_empty3 [label="Check if db file has
+any players data"]
+	user_enter_name3 [label="1.User enters one name
+2.Return to upper menu
+www: user enter other things"]
+	player_data_check4 [label="See if the name exists
+in the db file"]
+	double_check_before_erase [label="See if user truly
+want to delete it"]
 	start -> game_started
 	game_started -> check_db_file
 	check_db_file -> create_db_file [xlabel=No]
@@ -104,6 +120,19 @@ www: user enter other things"]
 	user_enter_name2 -> user_io [xlabel=2]
 	user_enter_name2 -> user_enter_name2 [xlabel=www]
 	tell_user_no_data2 -> user_io
+	user_io -> check_db_empty3 [xlabel=3]
+	check_db_empty3 -> tell_user_no_data3 [xlabel="no data"]
+	tell_user_no_data3 -> user_io
+	check_db_empty3 -> user_enter_name3 [xlabel="some data"]
+	user_enter_name3 -> player_data_check4 [xlabel=1]
+	player_data_check4 -> user_enter_name3 [xlabel=No]
+	player_data_check4 -> before_erase_player [xlabel=Yes]
+	before_erase_player -> double_check_before_erase
+	double_check_before_erase -> user_io [xlabel=No]
+	double_check_before_erase -> delete_player [xlabel=Yes]
+	delete_player -> user_io
+	user_enter_name3 -> user_io [xlabel=2]
+	user_enter_name3 -> user_enter_name3 [xlabel=www]
 	user_io -> new_game_or_not [xlabel=4]
 	game_resume -> end
 	game_main_script -> end

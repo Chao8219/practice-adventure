@@ -26,6 +26,10 @@ dot.node('game_resume', ('Game begins from where\n' +
 dot.node('tell_user_no_data2', 'Tell user there is\nno data in file')
 dot.node('display_player_status3', ('Player\'s status is\n' + 
     'displayed on the right'))
+dot.node('tell_user_no_data3', 'Tell user there is\nno data in file')
+dot.node('before_erase_player', ('Warn user that the player\n' + 
+    'data once deleted would\n' + 
+    'be gone forever'))
 
 # dotted box shpae for whatever is under the GUI, 
 # could not be seen by user
@@ -44,6 +48,7 @@ dot.node('load_player_object2', ('Cenerate a\n' +
     'assign the player\'s data\n' +
     'from the db file\n' + 
     'while instantiation'))
+dot.node('delete_player', 'Delete the player\ndata in db file')
 
 # diamond shape for decisions
 dot.attr('node', shape='diamond', style='solid')
@@ -68,6 +73,12 @@ dot.node('player_data_check3', 'See if the name exists\nin the db file')
 dot.node('user_enter_name2', ('1.User enters one name\n' + 
     '2.Return to upper menu\n' + 
     user_enter_random))
+dot.node('check_db_empty3', 'Check if db file has\nany players data')
+dot.node('user_enter_name3', ('1.User enters one name\n' + 
+    '2.Return to upper menu\n' + 
+    user_enter_random))
+dot.node('player_data_check4', 'See if the name exists\nin the db file')
+dot.node('double_check_before_erase', 'See if user truly\nwant to delete it')
 
 # edges
 dot.edge('start', 'game_started')
@@ -108,6 +119,19 @@ dot.edge('display_player_status3', 'game_resume')
 dot.edge('user_enter_name2', 'user_io', xlabel='2')
 dot.edge('user_enter_name2', 'user_enter_name2', xlabel='www')
 dot.edge('tell_user_no_data2', 'user_io')
+dot.edge('user_io', 'check_db_empty3', xlabel='3')
+dot.edge('check_db_empty3', 'tell_user_no_data3', xlabel='no data')
+dot.edge('tell_user_no_data3', 'user_io')
+dot.edge('check_db_empty3', 'user_enter_name3', xlabel='some data')
+dot.edge('user_enter_name3', 'player_data_check4', xlabel='1')
+dot.edge('player_data_check4', 'user_enter_name3', xlabel='No')
+dot.edge('player_data_check4', 'before_erase_player', xlabel='Yes')
+dot.edge('before_erase_player', 'double_check_before_erase')
+dot.edge('double_check_before_erase', 'user_io', xlabel='No')
+dot.edge('double_check_before_erase', 'delete_player', xlabel='Yes')
+dot.edge('delete_player', 'user_io')
+dot.edge('user_enter_name3', 'user_io', xlabel='2')
+dot.edge('user_enter_name3', 'user_enter_name3', xlabel='www')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')
 dot.edge('game_resume', 'end')
 dot.edge('game_main_script', 'end')
