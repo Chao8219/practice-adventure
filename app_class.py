@@ -380,7 +380,7 @@ class Application(tk.Frame):
                 self.clean_user_input()
                 break
             elif self.user_input == '2':
-                main_menu_signal = self.load_from_saved()
+                main_menu_signal = self.save_n_load()
                 self.clean_user_input()
                 if main_menu_signal == False:
                     break
@@ -390,7 +390,8 @@ class Application(tk.Frame):
                 self.quick_print('Please only enter 1 or 2.\n')
                 self.clean_user_input()
     
-    def load_from_saved(self):
+    def save_n_load(self):
+        """ This method is main user io method"""
         main_menu_signal = False
         while(True):
             self.print_line('Please select:\n')
@@ -400,12 +401,23 @@ class Application(tk.Frame):
             self.quick_print('  4. Return to the main menu.\n')
             self.wait_for_input()
             if self.user_input == '1':
-                if self.review_saved_players() is False:
+                if self.save_n_load_1() is False:
                     pass
                 else:
                     pass
             elif self.user_input == '2':
-                pass
+                player_obj = self.save_n_load_2()
+                if player_obj is False:
+                    pass
+                else:
+                    # the following are object test lines, not what you
+                    # may see in real game
+                    self.quick_print('The player object:\n')
+                    self.quick_print('  ' + 'Strength:' + player_obj.stre)
+                    self.quick_print('  ' + 'Sanity:' + player_obj.san)
+                    self.quick_print('\n')
+                    main_menu_signal = False
+                    return main_menu_signal
             elif self.user_input == '3':
                 pass
             elif self.user_input == '4':
@@ -418,44 +430,69 @@ class Application(tk.Frame):
 
         # print('Saved Players List is currently under construction.\n')
 
-    def review_saved_players(self):
+    def save_n_load_1(self):
+        # check if the db file has any player data
         if user_io.empty_check(self.file) is True:
-            self.quick_print('There is no saved player.\n')
+            self.quick_print('There is no saved player in the db file.\n')
             return False
         obtained_all_player_info = user_io.read_all(self.file)
-        self.quick_print('Please select one name to see details.\n')
+        self.quick_print('Saved Player List:\n')
         for j in range(0, len(obtained_all_player_info)):
             self.quick_print(' ' + obtained_all_player_info[j][0] + 
                             '\n')
         self.clean_user_input()
         while True:
+            self.quick_print('Please select one name to see details.' + 
+                'Or enter 2 to return the upper menu.\n')
             self.wait_for_input()
-            if user_io.find_info(self.user_input, self.file) is False:
-                self.quick_print('No such a name. \n')
+            temp_input = self.user_input
+            if temp_input == '2':
                 self.clean_user_input()
                 break
+            elif user_io.find_info(temp_input, self.file) is False:
+                self.quick_print('No such a name. \n')
+                self.clean_user_input()
             else:
                 self.quick_print('Found it! Please see player' + 
                                 'status for details.\n')
-                player_info_list = user_io.read_info(self.user_input, 
+                player_info_list = user_io.read_info(temp_input, 
                                                     self.file)
                 self.update_status_display(player_info_list)
                 self.clean_user_input()
                 break
         return True
     
-    def load_one_player(self, name):
+    def save_n_load_2(self):
         if user_io.empty_check(self.file) is True:
             self.quick_print('There is no saved player.\n')
             return False
-        self.quick_print('Please enter the name you want to load.\n')
-        self.wait_for_input()
-        if user_io.find_info(self.user_input, self.file) is False:
-            self.quick_print('There is no such a player.\n')
-        else:
-            # to-do: read one player's info
-            # and create a player instance.
-            pass    
+        while True:
+            self.quick_print('Please enter the name you want to load.' + 
+                'Or enter 2 to return the upper menu.\n')
+            self.wait_for_input()
+            temp_input = self.user_input
+            if temp_input == '2':
+                self.clean_user_input()
+                break
+            elif user_io.find_info(temp_input, self.file) is False:
+                self.quick_print('No such a name. \n')
+                self.clean_user_input()
+            else:
+                player_info_list = user_io.read_info(temp_input, self.file)
+                player_obj = player_class.CreatePlayer(player_info_list[0], 
+                                        new_born=False, 
+                                        player_info_list=player_info_list)
+                self.update_status_display(player_info_list)
+                self.clean_user_input()
+                return player_obj
+        return True
+
+
+    def save_n_load_3(self):
+        pass
+    
+    def save_n_load_4(self):
+        pass
 
     def update_status_display(self, player_info_list):
         self.display_player_name.config(text=player_info_list[0])

@@ -54,13 +54,13 @@ class CreatePlayer:
     foot = ''
 
     health_value = 100.0
-    def __init__(self, name, new_born=True, *args):
+    def __init__(self, name, new_born=True, player_info_list=[]):
         self.name = name
         if new_born is True:
             self.gen_ran_attr()
             self.init_armor()
         else:
-            self.assign_values(*args)
+            self.assign_values(player_info_list)
         return
     
     def gen_ran_attr(self, *args, **kwargs):
