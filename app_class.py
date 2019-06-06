@@ -393,7 +393,7 @@ class Application(tk.Frame):
     def save_n_load(self):
         """ This method is main user io method"""
         main_menu_signal = False
-        while(True):
+        while True:
             self.print_line('Please select:\n')
             self.quick_print('  1. Review saved players list.\n')
             self.quick_print('  2. Load one player.\n')
@@ -419,7 +419,8 @@ class Application(tk.Frame):
                     main_menu_signal = False
                     return main_menu_signal
             elif self.user_input == '3':
-                pass
+                # if return is True, it means the file is deleted
+                delete_signal = self.save_n_load_3()
             elif self.user_input == '4':
                 main_menu_signal = True
                 return main_menu_signal
@@ -489,10 +490,42 @@ class Application(tk.Frame):
 
 
     def save_n_load_3(self):
-        pass
-    
-    def save_n_load_4(self):
-        pass
+        if user_io.empty_check(self.file) is True:
+            self.quick_print('There is no saved player.\n')
+            return False
+        while True:
+            self.quick_print('Please enter the name you want to delete.' + 
+                'Or enter 2 to return the upper menu.\n')
+            self.wait_for_input()
+            temp_input = self.user_input
+            if temp_input == '2':
+                self.clean_user_input()
+                break
+            elif user_io.find_info(temp_input, self.file) is False:
+                self.quick_print('No such a name. \n')
+                self.clean_user_input()
+            else:
+                name_to_be_deleted = temp_input
+                self.quick_print('Found the name. ' + 
+                    'Do you really want to delete it? ' + 
+                    'There is no way to get them back after deleted.' + 
+                    'If you are certain, please enter \'yes\' to ' + 
+                    'perform. Or type in other words to return ' + 
+                    'the upper menu.\n')
+                self.clean_user_input()
+                self.wait_for_input()
+                temp_input = self.user_input
+                if (temp_input == 'yes' or 
+                    temp_input == 'Yes' or 
+                    temp_input == 'YES'):
+                    user_io.delete_info(name_to_be_deleted, self.file)
+                    self.quick_print('Player data deleted.\n')
+                    self.clean_user_input()
+                    return True
+                else:
+                    self.quick_print('Return to the upper menu.\n')
+                    self.clean_user_input()
+                    return False
 
     def update_status_display(self, player_info_list):
         self.display_player_name.config(text=player_info_list[0])

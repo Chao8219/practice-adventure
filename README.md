@@ -70,6 +70,11 @@ installation.
 
 Here is the link for 
 [Binder](https://mybinder.org/v2/gh/Chao8219/practice-adventure/master).
+One thing to notice is that, the tkinter seems does not support well with 
+online docker image, which means you may not be able to try this repo 
+directly through Binder.
+The best way to do so is to clone it locally and create the same conda-env 
+through the environment txt list file.
 
 Here is the link for 
 [Nbviewer](https://nbviewer.jupyter.org/github/Chao8219/practice-adventure/tree/master/)
@@ -79,11 +84,12 @@ Enjoy playing!
 ## 3 To Do
 
 - [x] move all py script into jupyter notebook for better preview.
-- [ ] fix the perfermance in jupyter notebook
+- [x] fix the perfermance in jupyter notebook
 - [ ] switch all array into numpy array
 - [x] get rid of global variables
 - [x] create player class
 - [x] fix the wait_for_input function
+- [ ] add exception handling feature
 
 ## 4 Wrap It Up! Project
 
