@@ -412,12 +412,8 @@ class Application(tk.Frame):
                 if player_obj is False:
                     pass
                 else:
-                    # the following are object test lines, not what you
-                    # may see in real game
-                    self.quick_print('The player object:\n')
-                    self.quick_print('  ' + 'Strength:' + player_obj.stre)
-                    self.quick_print('  ' + 'Sanity:' + player_obj.san)
-                    self.quick_print('\n')
+                    self.quick_print('Welcome back, ' + player_obj.name + 
+                                        '!\n')
                     main_menu_signal = False
                     return main_menu_signal
             elif temp_input == '3':
