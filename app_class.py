@@ -376,19 +376,18 @@ class Application(tk.Frame):
             self.quick_print('1. Start as a new player.' + '\n' + 
                             '2. Load from saved player list' + '\n')
             self.wait_for_input()
-            if self.user_input == '1':
-                self.clean_user_input()
+            temp_input = self.user_input
+            self.clean_user_input()
+            if temp_input == '1':
                 break
-            elif self.user_input == '2':
+            elif temp_input == '2':
                 main_menu_signal = self.save_n_load()
-                self.clean_user_input()
                 if main_menu_signal == False:
                     break
                 else:
                     pass
             else:
                 self.quick_print('Please only enter 1 or 2.\n')
-                self.clean_user_input()
     
     def save_n_load(self):
         """ This method is main user io method"""
@@ -400,12 +399,14 @@ class Application(tk.Frame):
             self.quick_print('  3. Delete one player.\n')
             self.quick_print('  4. Return to the main menu.\n')
             self.wait_for_input()
-            if self.user_input == '1':
+            temp_input = self.user_input
+            self.clean_user_input()
+            if temp_input == '1':
                 if self.save_n_load_1() is False:
                     pass
                 else:
                     pass
-            elif self.user_input == '2':
+            elif temp_input == '2':
                 player_obj = self.save_n_load_2()
                 if player_obj is False:
                     pass
@@ -418,18 +419,15 @@ class Application(tk.Frame):
                     self.quick_print('\n')
                     main_menu_signal = False
                     return main_menu_signal
-            elif self.user_input == '3':
+            elif temp_input == '3':
                 # if return is True, it means the file is deleted
                 delete_signal = self.save_n_load_3()
-            elif self.user_input == '4':
+            elif temp_input == '4':
                 main_menu_signal = True
                 return main_menu_signal
             else:
                 # stay inside this while loop
                 self.quick_print('Please select between 1 to 4.\n')
-                self.clean_user_input()
-
-        # print('Saved Players List is currently under construction.\n')
 
     def save_n_load_1(self):
         # check if the db file has any player data
@@ -447,19 +445,17 @@ class Application(tk.Frame):
                 'Or enter 2 to return the upper menu.\n')
             self.wait_for_input()
             temp_input = self.user_input
+            self.clean_user_input()
             if temp_input == '2':
-                self.clean_user_input()
                 break
             elif user_io.find_info(temp_input, self.file) is False:
                 self.quick_print('No such a name. \n')
-                self.clean_user_input()
             else:
                 self.quick_print('Found it! Please see player' + 
                                 'status for details.\n')
                 player_info_list = user_io.read_info(temp_input, 
                                                     self.file)
                 self.update_status_display(player_info_list)
-                self.clean_user_input()
                 break
         return True
     
@@ -472,19 +468,17 @@ class Application(tk.Frame):
                 'Or enter 2 to return the upper menu.\n')
             self.wait_for_input()
             temp_input = self.user_input
+            self.clean_user_input()
             if temp_input == '2':
-                self.clean_user_input()
                 break
             elif user_io.find_info(temp_input, self.file) is False:
                 self.quick_print('No such a name. \n')
-                self.clean_user_input()
             else:
                 player_info_list = user_io.read_info(temp_input, self.file)
                 player_obj = player_class.CreatePlayer(player_info_list[0], 
                                         new_born=False, 
                                         player_info_list=player_info_list)
                 self.update_status_display(player_info_list)
-                self.clean_user_input()
                 return player_obj
         return True
 
@@ -498,12 +492,11 @@ class Application(tk.Frame):
                 'Or enter 2 to return the upper menu.\n')
             self.wait_for_input()
             temp_input = self.user_input
+            self.clean_user_input()
             if temp_input == '2':
-                self.clean_user_input()
                 break
             elif user_io.find_info(temp_input, self.file) is False:
                 self.quick_print('No such a name. \n')
-                self.clean_user_input()
             else:
                 name_to_be_deleted = temp_input
                 self.quick_print('Found the name. ' + 
@@ -512,19 +505,17 @@ class Application(tk.Frame):
                     'If you are certain, please enter \'yes\' to ' + 
                     'perform. Or type in other words to return ' + 
                     'the upper menu.\n')
-                self.clean_user_input()
                 self.wait_for_input()
                 temp_input = self.user_input
+                self.clean_user_input()
                 if (temp_input == 'yes' or 
                     temp_input == 'Yes' or 
                     temp_input == 'YES'):
                     user_io.delete_info(name_to_be_deleted, self.file)
                     self.quick_print('Player data deleted.\n')
-                    self.clean_user_input()
                     return True
                 else:
                     self.quick_print('Return to the upper menu.\n')
-                    self.clean_user_input()
                     return False
 
     def update_status_display(self, player_info_list):
