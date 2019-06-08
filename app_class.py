@@ -41,6 +41,7 @@ class Application(tk.Frame):
         while self.game_start_signal is False:
             self.master.update()
         self.welcome_screen()
+        self.fresh_beginning()
         
     def create_widgets(self):
         self.create_scroll_bar()
@@ -370,13 +371,12 @@ class Application(tk.Frame):
             self.print_line('Game data file exists.\n')
         else:
             self.print_line('Game data file is created successfully.\n')
-        while(True):
+        while True:
             self.print_line('Would you like to:' + '\n')
             self.quick_print('1. Start as a new player.' + '\n' + 
                             '2. Load from saved player list' + '\n')
             self.wait_for_input()
             if self.user_input == '1':
-                print(self.orwell)
                 self.clean_user_input()
                 break
             elif self.user_input == '2':
@@ -538,6 +538,29 @@ class Application(tk.Frame):
         self.armour2.config(text=player_wears[1])
         self.weapon2.config(text=player_wears[2])
         self.footwear2.config(text=player_wears[3])
+    
+    def fresh_beginning(self):
+        """ This is the scripts for playing as a new player """
+        self.create_new_player()
+    
+    def create_new_player(self):
+        while True:
+            self.quick_print('Please enter a name for the new player.\n')
+            self.wait_for_input()
+            temp_input = self.user_input
+            self.clean_user_input()
+            if user_io.find_info(temp_input, self.file) is True:
+                self.quick_print('The name exists in the db file. ' + 
+                    'Please re-enter the name.\n')
+                continue
+            elif temp_input.isdigit():
+                self.quick_print('Please avoid using pure number.\n')
+                continue
+            else:
+                player_obj = player_class.CreatePlayer(temp_input)
+                user_io.insert_info(player_obj.name, 
+                    player_obj.attr, player_obj.armor, self.file)
+                return player_obj
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
