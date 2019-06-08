@@ -41,7 +41,6 @@ class Application(tk.Frame):
         while self.game_start_signal is False:
             self.master.update()
         self.welcome_screen()
-        self.fresh_beginning()
         
     def create_widgets(self):
         self.create_scroll_bar()
@@ -373,12 +372,13 @@ class Application(tk.Frame):
             self.print_line('Game data file is created successfully.\n')
         while True:
             self.print_line('Would you like to:' + '\n')
-            self.quick_print('1. Start as a new player.' + '\n' + 
-                            '2. Load from saved player list' + '\n')
+            self.quick_print('  1. Start as a new player.\n' + 
+                            '  2. Load from saved player list\n')
             self.wait_for_input()
             temp_input = self.user_input
             self.clean_user_input()
             if temp_input == '1':
+                self.create_new_player()
                 break
             elif temp_input == '2':
                 main_menu_signal = self.save_n_load()
@@ -455,7 +455,9 @@ class Application(tk.Frame):
                                 'status for details.\n')
                 player_info_list = user_io.read_info(temp_input, 
                                                     self.file)
-                self.update_status_display(player_info_list)
+                player_obj = player_class.CreatePlayer(player_info_list[0], 
+                    new_born=False, player_info_list=player_info_list)
+                self.update_status_display(player_obj)
                 break
         return True
     
@@ -478,10 +480,9 @@ class Application(tk.Frame):
                 player_obj = player_class.CreatePlayer(player_info_list[0], 
                                         new_born=False, 
                                         player_info_list=player_info_list)
-                self.update_status_display(player_info_list)
+                self.update_status_display(player_obj)
                 return player_obj
         return True
-
 
     def save_n_load_3(self):
         if user_io.empty_check(self.file) is True:
@@ -518,21 +519,15 @@ class Application(tk.Frame):
                     self.quick_print('Return to the upper menu.\n')
                     return False
 
-    def update_status_display(self, player_info_list):
-        self.display_player_name.config(text=player_info_list[0])
-        player_attr = player_info_list[1:8]
-        player_wears = player_info_list[8:]
+    def update_status_display(self, player_obj):
+        self.display_player_name.config(text=player_obj.name)
         self.status_val.delete(0, 'end') # clear listbox
         for j in range(0, 7):
-            self.status_val.insert(j+1, player_attr[j])
-        self.headwear2.config(text=player_wears[0])
-        self.armour2.config(text=player_wears[1])
-        self.weapon2.config(text=player_wears[2])
-        self.footwear2.config(text=player_wears[3])
-    
-    def fresh_beginning(self):
-        """ This is the scripts for playing as a new player """
-        self.create_new_player()
+            self.status_val.insert(j+1, int(player_obj.attr[0, j]))
+        self.headwear2.config(text=player_obj.armor[0])
+        self.armour2.config(text=player_obj.armor[1])
+        self.weapon2.config(text=player_obj.armor[2])
+        self.footwear2.config(text=player_obj.armor[3])
     
     def create_new_player(self):
         while True:
@@ -551,7 +546,9 @@ class Application(tk.Frame):
                 player_obj = player_class.CreatePlayer(temp_input)
                 user_io.insert_info(player_obj.name, 
                     player_obj.attr, player_obj.armor, self.file)
-                return player_obj
+                break
+        self.update_status_display(player_obj)
+        self.quick_print('Player is created!\n')
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
