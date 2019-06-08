@@ -369,7 +369,7 @@ class Application(tk.Frame):
         if user_io.create_file(self.path, self.file) is False:
             self.print_line('Game data file exists.\n')
         else:
-            self.print_line('Game data file is created successfully.\n')
+            self.print_line('Game data file is created successfully.\n\n')
         while True:
             self.print_line('Would you like to:' + '\n')
             self.quick_print('  1. Start as a new player.\n' + 
@@ -403,7 +403,8 @@ class Application(tk.Frame):
             self.clean_user_input()
             if temp_input == '1':
                 if self.save_n_load_1() is False:
-                    pass
+                    self.quick_print('There is no saved ' + 
+                                        'player in the db file.\n')
                 else:
                     pass
             elif temp_input == '2':
@@ -421,7 +422,7 @@ class Application(tk.Frame):
                     return main_menu_signal
             elif temp_input == '3':
                 # if return is True, it means the file is deleted
-                delete_signal = self.save_n_load_3()
+                self.save_n_load_3()
             elif temp_input == '4':
                 main_menu_signal = True
                 return main_menu_signal
@@ -432,7 +433,6 @@ class Application(tk.Frame):
     def save_n_load_1(self):
         # check if the db file has any player data
         if user_io.empty_check(self.file) is True:
-            self.quick_print('There is no saved player in the db file.\n')
             return False
         obtained_all_player_info = user_io.read_all(self.file)
         self.quick_print('Saved Player List:\n')
@@ -453,10 +453,7 @@ class Application(tk.Frame):
             else:
                 self.quick_print('Found it! Please see player' + 
                                 'status for details.\n')
-                player_info_list = user_io.read_info(temp_input, 
-                                                    self.file)
-                player_obj = player_class.CreatePlayer(player_info_list[0], 
-                    new_born=False, player_info_list=player_info_list)
+                player_obj = user_io.read_one(temp_input, self.file)
                 self.update_status_display(player_obj)
                 break
         return True
@@ -476,13 +473,9 @@ class Application(tk.Frame):
             elif user_io.find_info(temp_input, self.file) is False:
                 self.quick_print('No such a name. \n')
             else:
-                player_info_list = user_io.read_info(temp_input, self.file)
-                player_obj = player_class.CreatePlayer(player_info_list[0], 
-                                        new_born=False, 
-                                        player_info_list=player_info_list)
+                player_obj = user_io.read_one(temp_input, self.file)
                 self.update_status_display(player_obj)
                 return player_obj
-        return True
 
     def save_n_load_3(self):
         if user_io.empty_check(self.file) is True:
@@ -544,11 +537,10 @@ class Application(tk.Frame):
                 continue
             else:
                 player_obj = player_class.CreatePlayer(temp_input)
-                user_io.insert_info(player_obj.name, 
-                    player_obj.attr, player_obj.armor, self.file)
-                break
-        self.update_status_display(player_obj)
-        self.quick_print('Player is created!\n')
+                user_io.insert_info(player_obj, self.file)
+                self.update_status_display(player_obj)
+                self.quick_print('Player is created!\n')
+                break        
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')

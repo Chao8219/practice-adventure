@@ -1,6 +1,7 @@
 import sqlite3
 import string
 import os
+import player_class
 
 def create_file(path, file):
     print('Trying to Create Database...')
@@ -20,35 +21,57 @@ def create_file(path, file):
         print('File exists. Move on.')
         return False
 
-def insert_info(name, attr, armor, file):
-    stre, inte, agi, defe, fai, san, luc = attr[0] # unpack it
-    head, body, weap, foot = armor
+def insert_info(player_obj, file):
+    """
+    Input
+    -----
+    player_obj: object
+    
+    file: string
+
+    Return
+    ------
+    True: insert info into the db file successfully.
+    False: insert info into the db file unsuccessfully.
+    """
+    stre, inte, agi, defe, fai, san, luc = player_obj.attr
+    head, body, weap, foot = player_obj.armor
+    name = player_obj.name
     conn = sqlite3.connect(file)
     cur = conn.cursor()
     found = find_info(name, file)
     if found == 0:
-        formed=[name,stre,inte,agi,defe,fai,san,luc,head,body,weap,foot]
+        formed = ([name, stre, inte, agi, defe, fai, san, luc, 
+                    head, body, weap, foot])
         cur.execute('''INSERT INTO players_info
                        VALUES(?,?,?,?,?,?,?,?,?,?,?,?)''', formed)
         conn.commit()
         conn.close()
         print('Database insert successfully')
-        return 1
+        return True
     else:
         conn.commit()
         conn.close()
         print('Name exists.')
-        return 0
+        return False
 
-def read_info(name, file):
+def read_one(name, file):
     conn = sqlite3.connect(file)
     cur = conn.cursor()
     cur.execute('SELECT * FROM players_info WHERE NAME=?', (name, ))
-    obtained_player_info = cur.fetchone()
-    # this player's info store in above variable
+    # obtain the player info in a tuple
+    fetched_player_info = cur.fetchone()
+    player_obj = instan_player(fetched_player_info)
     conn.close()
     print('Database read successfully')
-    return obtained_player_info
+    return player_obj
+
+def instan_player(fetched_info, new_born=False):
+    """Instantiate player class from fetched player info"""
+    player_obj = player_class.CreatePlayer(fetched_info[0], 
+                                            new_born=new_born, 
+                                            player_info_list=fetched_info)
+    return player_obj
 
 def read_all(file):
     """ This method is to read all info at one time
@@ -64,14 +87,16 @@ def read_all(file):
     print('Database read successfully')
     return obtained_all_player_info
 
-def update_info(name, attr, armor, file):
-    stre, inte, agi, defe, fai, san, luc = attr[0] # unpack it
-    head, body, weap, foot = armor
+def update_info(player_obj, file):
+    stre, inte, agi, defe, fai, san, luc = player_obj.attr
+    head, body, weap, foot = player_obj.armor
+    name = player_obj.name
     conn = sqlite3.connect(file)
     cur = conn.cursor()
     found = find_info(name, file)
-    if found == 1:
-        formed2=[stre,inte,agi,defe,fai,san,luc,head,body,weap,foot,name]
+    if found is True:
+        formed2 = ([stre, inte, agi, defe, fai, san, luc, 
+                    head, body, weap, foot, name])
         cur.execute('''UPDATE players_info
                        SET STR=?
                        ,INT=?
@@ -88,29 +113,29 @@ def update_info(name, attr, armor, file):
         conn.commit()
         conn.close()
         print('Database updated successfully')
-        return 1
+        return True
     else:
         print('No such file')
         conn.commit()
         conn.close()
-        return 0
+        return False
 
 def delete_info(name, file):
     conn = sqlite3.connect(file)
     cur = conn.cursor()
     found = find_info(name, file)
-    if found == 1:
+    if found is True:
         cur.execute('''DELETE FROM players_info WHERE NAME = ? ''', 
                 (name, ))
         conn.commit()
         print('Data deleted successfully')
         conn.close()
-        return 1
+        return True
     else:
         print('No such file')
         conn.commit()
         conn.close()
-        return 0
+        return False
 
 def find_info(name, file):
     conn = sqlite3.connect(file)
