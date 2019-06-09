@@ -85,6 +85,7 @@ Enjoy playing!
 
 - [x] integrate player_class into user_io
 - [ ] add exception handling feature
+- [ ] w/r game scripts from db file (maybe in the future)
 
 
 ## 4 Wrap It Up! Project

@@ -36,7 +36,9 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.pack(anchor='w', fill='both', expand='1') 
+        self.pack(anchor='w', fill='both', expand='1')
+        # create a void player object
+        self.player_obj = player_class.CreatePlayer('Void')
         self.create_widgets()
         while self.game_start_signal is False:
             self.master.update()
@@ -414,6 +416,7 @@ class Application(tk.Frame):
                 else:
                     self.quick_print('Welcome back, ' + player_obj.name + 
                                         '!\n')
+                    self.player_obj = player_obj
                     main_menu_signal = False
                     return main_menu_signal
             elif temp_input == '3':
@@ -536,7 +539,8 @@ class Application(tk.Frame):
                 user_io.insert_info(player_obj, self.file)
                 self.update_status_display(player_obj)
                 self.quick_print('Player is created!\n')
-                break        
+                self.player_obj = player_obj
+                break
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
