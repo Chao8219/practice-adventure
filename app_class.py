@@ -43,6 +43,7 @@ class Application(tk.Frame):
         while self.game_start_signal is False:
             self.master.update()
         self.welcome_screen()
+        self.main_scripts()
         
     def create_widgets(self):
         self.create_scroll_bar()
@@ -359,7 +360,7 @@ class Application(tk.Frame):
 
     def welcome_screen(self):
         self.print_line('Hey, how are you doing today?' + '\n')
-        self.print_line('Welcome to try this project out.' + '\n')
+        self.print_line('Welcome to play!' + '\n')
         self.print_line('This is a demo for apps and games' + 
                     ' that is based on tkinter. ' + '\n')
         self.print_line('You will see some basic ideas about' + 
@@ -541,6 +542,59 @@ class Application(tk.Frame):
                 self.quick_print('Player is created!\n')
                 self.player_obj = player_obj
                 break
+
+    def monster_action(self, monster_name, monster_move):
+        words = ('A ' + monster_name + ' ' + monster_move + '!\n')
+        script_helv10_bold = tkfont.Font(family='Helvetica', size=10, 
+                                            weight='bold')
+        self.enter_signal = False
+        # with new line, the user is not entering
+        self.type_in.config(state='disabled') 
+        # not allowed entering between lines
+        self.enter_button.config(state='disabled')
+        self.script.config(state='normal')
+        self.script.insert('end', words)
+        insert_loc = self.script.index(tk.INSERT)
+        insert_line_num = str(int(float(insert_loc)) - 1)
+        word_start_index = insert_line_num + '.0'
+        word_end_index = insert_line_num + '.' + str(len(words) - 1)
+        self.script.tag_add('current_line', word_start_index, 
+                            word_end_index)
+        self.script.tag_config('current_line', font=script_helv10_bold, 
+                                justify='center')
+        self.master.update()
+        self.script.see('end') # auto scroll the scrollbar
+        self.script.config(state='disabled')
+        self.master.update()
+        self.window_pause(400)
+        self.master.update()
+        self.type_in.config(state='normal')
+        self.enter_button.config(state='normal')
+
+    def main_scripts(self, host_name='Alex'):
+        self.print_name(host_name)
+        self.print_line('Hello there, my name is ' + host_name + 
+                        ' , welcome to take an adventure in our world.\n')
+        self.print_name(host_name)
+        self.print_line('As a new comer to this world, ' + 
+                        'you may wonder how everything works. ' + 
+                        'Please allow me to introduce things to you.\n')
+        self.print_name(host_name)
+        self.print_line('On the left, it\'s the main script frame, ' + 
+                        'where you can see how the game runs.\n' + 
+                        'On the right, you may check your role\'s ' + 
+                        'status and equipments that will affect ' + 
+                        'if you are able to survive through the ' + 
+                        'journey.\n')
+        self.print_name(host_name)
+        self.print_line('Of course, you will encounter some foul ' + 
+                        'creatures. A powerful weapon may assist ' + 
+                        'you to defeat them.\n')
+        self.print_name(host_name)
+        self.print_line('Speaking of which, a sneaky goblin, the ' + 
+                        'most common fool monster, is approching ' + 
+                        'us. Are you ready to give it a shot?\n')
+        self.monster_action('goblin', 'shows up')
 
 if __name__ == '__main__':
     print('Please import this module to create the application.')
