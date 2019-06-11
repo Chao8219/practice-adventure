@@ -5,7 +5,7 @@ class CreateGeneralBeing:
     """
     The general idea is, every creature in this world has the following 
     attributes:
-    name, level, attack, defence, speed, hp, drops.
+    name, level, attack, defense, speed, hp, drops.
 
     The same creature with same level may have the same base attributes, 
     but they may have various random tiny difference.

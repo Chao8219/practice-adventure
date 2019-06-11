@@ -88,7 +88,7 @@ Enjoy playing!
 - [ ] add exception handling feature
 - [ ] w/r game scripts from db file (maybe in the future)
 - [ ] add foul creatures class
-- [ ] add db r/w GUI
+- [x] add db r/w GUI -> user SQLiteBrowser instead
 
 ### 3.2 Known Issues
 - [ ] conda-env has some dependency issue
