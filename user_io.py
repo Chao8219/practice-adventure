@@ -34,7 +34,7 @@ def insert_info(player_obj, file):
     True: insert info into the db file successfully.
     False: insert info into the db file unsuccessfully.
     """
-    stre, inte, agi, defe, fai, san, luc = player_obj.attr
+    stre, inte, agi, defe, fai, san, luc = player_obj.attr[0]
     head, body, weap, foot = player_obj.armor
     name = player_obj.name
     conn = sqlite3.connect(file)
@@ -88,7 +88,7 @@ def read_all(file):
     return obtained_all_player_info
 
 def update_info(player_obj, file):
-    stre, inte, agi, defe, fai, san, luc = player_obj.attr
+    stre, inte, agi, defe, fai, san, luc = player_obj.attr[0]
     head, body, weap, foot = player_obj.armor
     name = player_obj.name
     conn = sqlite3.connect(file)

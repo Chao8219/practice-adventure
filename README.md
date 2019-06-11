@@ -93,7 +93,7 @@ Enjoy playing!
 
 ### 3.2 Known Issues
 - [ ] conda-env has some dependency issue
-- [ ] list/array unpack issue while creating a new player
+- [x] list/array unpack issue while creating a new player
 
 ## 4 Wrap It Up! Project
 
