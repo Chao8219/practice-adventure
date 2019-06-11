@@ -89,6 +89,7 @@ Enjoy playing!
 - [ ] w/r game scripts from db file (maybe in the future)
 - [ ] add foul creatures class
 - [x] add db r/w GUI -> user SQLiteBrowser instead
+- [x] modify jupyter path to relative one
 
 ### 3.2 Known Issues
 - [ ] conda-env has some dependency issue
