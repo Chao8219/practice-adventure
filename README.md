@@ -82,11 +82,17 @@ Here is the link for
 Enjoy playing!
 
 ## 3 To Do
+### 3.1 To-do Task
 
 - [x] integrate player_class into user_io
 - [ ] add exception handling feature
 - [ ] w/r game scripts from db file (maybe in the future)
+- [ ] add foul creatures class
+- [ ] add db r/w GUI
 
+### 3.2 Known Issues
+- [ ] conda-env has some dependency issue
+- [ ] list/array unpack issue while creating a new player
 
 ## 4 Wrap It Up! Project
 
