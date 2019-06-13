@@ -98,5 +98,4 @@ dependencies:
   - xz=5.2.4=h1de35cc_1001
   - zeromq=4.3.1=h0a44026_1000
   - zlib=1.2.11=h1de35cc_1004
-prefix: /Users/apple/anaconda3/envs/rpg-env
 

@@ -2,9 +2,11 @@
 conda_env="anaconda3/bin/activate rpg-env"
 repo_loc="git-chao-repos/practice-adventure"
 dir_loc="conda-env/osx64"
+get_back="../.."
 cd ~
 source ${conda_env}
 cd ${repo_loc}
 cd ${dir_loc}
 conda env export > osx64-conda-env.yml
 conda env export --no-builds > osx64-conda-no-builds-env.yml
+cd ${get_back}

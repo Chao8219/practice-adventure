@@ -1,5 +1,4 @@
 {
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "python.pythonPath": "C:\\Users\\Chao\\Anaconda3\\envs\\rpg-env\\python.exe"
+    "python.linting.enabled": true
 }
