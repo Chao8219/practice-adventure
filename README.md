@@ -1,11 +1,9 @@
 # Practice_Adventure
-RPG_type
+This is a demo rpg game under the tkinter GUI frame.
+Please run the jupyter notebook to give it a try.
 
-Please run Take_An_Adventure_GUI to run the game.
-
-Directory /test/ contains test file.
-
-File read_user_info.py could read the info directly.
+Here are several ways to run the jupyter notebook if you don't have 
+any idea about it.
 
 ## 1 Use Venv
 
@@ -81,19 +79,19 @@ Here is the link for
 
 Enjoy playing!
 
+Update:
+Right now the tkinter couldn't run well on Binder, which means you may 
+need to do it locally.
+
 ## 3 To Do
 ### 3.1 To-do Task
 
 - [x] integrate player_class into user_io
 - [ ] add exception handling feature
-- [ ] w/r game scripts from db file (maybe in the future)
-- [ ] add foul creatures class
-- [x] add db r/w GUI -> user SQLiteBrowser instead
 - [x] modify jupyter path to relative one
 
 ### 3.2 Known Issues
-- [ ] conda-env has some dependency issue
-- [x] list/array unpack issue while creating a new player
+- [x] conda-env has some dependency issue
 
 ## 4 Wrap It Up! Project
 

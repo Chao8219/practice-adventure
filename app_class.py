@@ -30,12 +30,12 @@ class Application(tk.Frame):
     hp_value = 100
     enter_signal = False
     user_input = ''
-    path = 'data'
-    file = path + '/user_info.db'
-
-    def __init__(self, master=None):
+    
+    def __init__(self, path, file, master=None):
         super().__init__(master)
         self.master = master
+        self.path = path
+        self.file = file
         self.pack(anchor='w', fill='both', expand='1')
         # create a void player object
         self.player_obj = player_class.CreatePlayer('Void')
