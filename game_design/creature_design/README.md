@@ -3,8 +3,8 @@
 To simplify the problem, the foul creature should be the only creature 
 considered.
 
-One could see the [nbviewer](https://nbviewer.jupyter.org/github/
-Chao8219/practice-adventure/tree/master/game_design/) 
+One could see the 
+[nbviewer](https://nbviewer.jupyter.org/github/Chao8219/practice-adventure/tree/master/game_design/) 
 to see all flowcharts.
 
 # Foul Creature
