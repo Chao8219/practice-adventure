@@ -1,0 +1,5 @@
+digraph "player status" {
+	label="Player Status" splines=ortho
+	node [shape=oval]
+	Player
+}

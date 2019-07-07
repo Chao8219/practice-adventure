@@ -1,0 +1,139 @@
+digraph user_io_flowchart {
+	label="User IO Flowchart
+by Chao" splines=ortho
+	node [shape=oval]
+	start [label="GUI appears"]
+	end [label="GUI distroys
+or game ends"]
+	node [shape=box style=solid]
+	game_started [label="The start game button
+is clicked"]
+	welcome_script [label="Display welcome script"]
+	enter_yourname [label="User enter his/her name"]
+	display_player_status [label="Player's status is
+displayed on the right"]
+	tell_user_no_data [label="Tell user there is
+no data in file"]
+	show_saved_names [label="Display saved names"]
+	game_main_script [label="The game starts from beginning"]
+	display_player_status2 [label="Player's status is
+displayed on the right"]
+	game_resume [label="Game begins from where
+user exited last time"]
+	tell_user_no_data2 [label="Tell user there is
+no data in file"]
+	display_player_status3 [label="Player's status is
+displayed on the right"]
+	tell_user_no_data3 [label="Tell user there is
+no data in file"]
+	before_erase_player [label="Warn user that the player
+data once deleted would
+be gone forever"]
+	node [shape=box style=dotted]
+	create_db_file [label="Create db file"]
+	get_new_player [label="Generate a
+new player object"]
+	get_all_data [label="Get all data
+from db file"]
+	load_player_object [label="Cenerate a
+new player object and
+assign the player's data
+from the db file
+while instantiation"]
+	load_player_object2 [label="Cenerate a
+new player object and
+assign the player's data
+from the db file
+while instantiation"]
+	delete_player [label="Delete the player
+data in db file"]
+	node [shape=diamond style=solid]
+	check_db_file [label="Check if db file exists"]
+	new_game_or_not [label="1.Start a new game
+2.Load from saved players
+www: user enter other things"]
+	user_io [label="1.Review all players
+2.Load one player
+3.Delete one player
+4.Return to the upper menu
+www: user enter other things"]
+	player_data_check1 [label="See if the name exists
+in the db file"]
+	check_db_empty [label="Check if db file has
+any players data"]
+	user_enter_name [label="1.User enters one name
+2.Return to upper menu
+www: user enter other things"]
+	player_data_check2 [label="See if the name exists
+in the db file"]
+	check_db_empty2 [label="Check if db file has
+any players data"]
+	player_data_check3 [label="See if the name exists
+in the db file"]
+	user_enter_name2 [label="1.User enters one name
+2.Return to upper menu
+www: user enter other things"]
+	check_db_empty3 [label="Check if db file has
+any players data"]
+	user_enter_name3 [label="1.User enters one name
+2.Return to upper menu
+www: user enter other things"]
+	player_data_check4 [label="See if the name exists
+in the db file"]
+	double_check_before_erase [label="See if user truly
+want to delete it"]
+	start -> game_started
+	game_started -> check_db_file
+	check_db_file -> create_db_file [xlabel=No]
+	create_db_file -> welcome_script
+	check_db_file -> welcome_script [xlabel=Yes]
+	welcome_script -> new_game_or_not
+	new_game_or_not -> enter_yourname [xlabel=1]
+	enter_yourname -> player_data_check1
+	player_data_check1 -> enter_yourname [xlabel=Yes]
+	player_data_check1 -> get_new_player [xlabel=No]
+	get_new_player -> display_player_status
+	display_player_status -> game_main_script
+	new_game_or_not -> user_io [xlabel=2]
+	new_game_or_not -> new_game_or_not [xlabel=www]
+	user_io -> check_db_empty [xlabel=1]
+	check_db_empty -> tell_user_no_data [xlabel="no data"]
+	tell_user_no_data -> user_io
+	check_db_empty -> get_all_data [xlabel="some data"]
+	get_all_data -> show_saved_names
+	show_saved_names -> user_enter_name
+	user_enter_name -> player_data_check2 [xlabel=1]
+	player_data_check2 -> load_player_object [xlabel=Yes]
+	load_player_object -> display_player_status2
+	display_player_status2 -> user_io
+	player_data_check2 -> user_enter_name [xlabel=No]
+	user_enter_name -> user_io [xlabel=2]
+	user_enter_name -> user_enter_name [xlabel=www]
+	user_io -> check_db_empty2 [xlabel=2]
+	check_db_empty2 -> tell_user_no_data2 [xlabel="no data"]
+	check_db_empty2 -> user_enter_name2 [xlabel="some data"]
+	user_enter_name2 -> player_data_check3 [xlabel=1]
+	player_data_check3 -> user_enter_name2 [xlabel=No]
+	player_data_check3 -> load_player_object2 [xlabel=Yes]
+	load_player_object2 -> display_player_status3
+	display_player_status3 -> game_resume
+	user_enter_name2 -> user_io [xlabel=2]
+	user_enter_name2 -> user_enter_name2 [xlabel=www]
+	tell_user_no_data2 -> user_io
+	user_io -> check_db_empty3 [xlabel=3]
+	check_db_empty3 -> tell_user_no_data3 [xlabel="no data"]
+	tell_user_no_data3 -> user_io
+	check_db_empty3 -> user_enter_name3 [xlabel="some data"]
+	user_enter_name3 -> player_data_check4 [xlabel=1]
+	player_data_check4 -> user_enter_name3 [xlabel=No]
+	player_data_check4 -> before_erase_player [xlabel=Yes]
+	before_erase_player -> double_check_before_erase
+	double_check_before_erase -> user_io [xlabel=No]
+	double_check_before_erase -> delete_player [xlabel=Yes]
+	delete_player -> user_io
+	user_enter_name3 -> user_io [xlabel=2]
+	user_enter_name3 -> user_enter_name3 [xlabel=www]
+	user_io -> new_game_or_not [xlabel=4]
+	game_resume -> end
+	game_main_script -> end
+}
