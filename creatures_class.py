@@ -20,7 +20,7 @@ class BuildCreature:
     Just remember to del the object once finish using.
     """
 
-    def __init__(self, file_path, creature_id, creature_level=1,):
+    def __init__(self, file_path, creature_id, creature_level=1):
         """
         Constructor
 

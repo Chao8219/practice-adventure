@@ -1,7 +1,7 @@
 from graphviz import Digraph
 
-dot = Digraph('game_flow_parent', filename='game_flow')
-dot.attr(label='Game Flow Chart\nby Chao', splines='ortho')
+dot = Digraph('user_io_flowchart', filename='user_io_flowchart')
+dot.attr(label='User IO Flowchart\nby Chao', splines='ortho')
 
 # oval shape for start and end
 dot.attr('node', shape='oval')
@@ -135,11 +135,5 @@ dot.edge('user_enter_name3', 'user_enter_name3', xlabel='www')
 dot.edge('user_io', 'new_game_or_not', xlabel='4')
 dot.edge('game_resume', 'end')
 dot.edge('game_main_script', 'end')
-
-# child graph for rank level
-child = Digraph('game_flow_child')
-child.attr(rank='same')
-
-dot.subgraph(child)
 
 dot.view()
